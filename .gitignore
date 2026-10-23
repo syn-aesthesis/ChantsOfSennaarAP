@@ -1,0 +1,28 @@
+# .NET / C# / Visual Studio / Rider Outputs
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+bld/
+[Log,log,LOG]s/
+*.user
+*.suo
+*.sln.docstates
+
+# JetBrains Rider & ReSharper
+.idea/
+*.sln.iml
+_ReSharper*/
+*.[Rr]e[Ss]harper.user
+CompileWithCheck_Output/
+
+# NuGet Packages
+*.nuget.props
+*.nuget.targets
+
+# OS / System Files
+.DS_Store
+Thumbs.db
+Desktop.ini
