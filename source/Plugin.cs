@@ -45,14 +45,14 @@ public class Plugin : BaseUnityPlugin {
         string statusMessage;
         if (ArchipelagoClient.Authenticated) {
             // if your game doesn't usually show the cursor this line may be necessary
-            Cursor.visible = false;
+            // Cursor.visible = false;
 
             statusMessage = " Status: Connected";
             GUI.Label(new Rect(16, 40, 300, 20), APDisplayInfo + statusMessage);
         }
         else {
             // if your game doesn't usually show the cursor this line may be necessary
-            Cursor.visible = false;
+            // Cursor.visible = false;
             
             statusMessage = " Status: Disconnected";
             GUI.Label(new Rect(16, 40, 300, 20), APDisplayInfo + statusMessage);
