@@ -23,6 +23,7 @@ CompileWithCheck_Output/
 *.nuget.targets
 
 # OS / System Files
+.mailmap
 .DS_Store
 Thumbs.db
 Desktop.ini
