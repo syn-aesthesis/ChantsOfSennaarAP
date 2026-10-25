@@ -12,11 +12,14 @@ def set_all_rules(world: ChantsOfSennaarWorld) -> None:
 
 
 def set_all_entrance_rules(world: ChantsOfSennaarWorld) -> None:
-    crypt_valves_exit = world.get_entrance("Crypt Valves exit")
-    journal_a01_check = world.get_entrance("Crypt Valves journal A01")
-    can_complete_journal_a01 = HasAll("Devotee Rune 10", "Devotee Rune 11", "Devotee Rune 19")
-    world.set_rule(crypt_valves_exit, can_complete_journal_a01)
-    world.set_rule(journal_a01_check, can_complete_journal_a01)
+    # set scene exit conditions
+    world.set_rule(world.get_entrance("Crypt Valves to Crypt Sewer Viaduct"), HasAll("Devotee Rune 10", "Devotee Rune 11", "Devotee Rune 19"))
+
+    # set journal page conditions
+    for p in len(DEVOTEE_PAGES):
+        page_name = DEVOTEE_PAGES[p]
+        page_runes = [f"Devotee Rune {r+1}:02d" for r in DEVOTEE_PAGE_RUNES[p]]
+        world.set_rule(world.get_entrance(f"{world.origin_region_name} to {page_name}"), HasAll(page_runes))
 
 
 def set_all_location_rules(world: ChantsOfSennaarWorld) -> None:

@@ -4,25 +4,17 @@ from BaseClasses import Entrance, Region
 if TYPE_CHECKING:
     from .world import ChantsOfSennaarWorld
 
-REGION_NAMES = [
-    "Crypt Spawn",
-    "Crypt Stairway",
-    "Crypt Sewer Gate",
-    "Crypt Valves",
-    "Crypt Sewer Viaduct",
-    "Devotee Rune 10",
-    "Devotee Rune 11",
-    "Devotee Rune 19",
-    "Devotee Journal Page 01",
-]
+from .cos_data import *
+
 
 def create_and_connect_regions(world: ChantsOfSennaarWorld) -> None:
     create_all_regions(world)
     connect_regions(world)
 
+
 def create_all_regions(world: ChantsOfSennaarWorld) -> None:
     regions: list[Region] = []
-    for region_name in REGION_NAMES:
+    for region_name in ALL_REGIONS:
         regions.append(Region(region_name, world.player, world.multiworld))
 
     world.multiworld.regions += regions
@@ -30,21 +22,27 @@ def create_all_regions(world: ChantsOfSennaarWorld) -> None:
 
 def connect_regions(world: ChantsOfSennaarWorld) -> None:
     regions: dict[str, Region] = {}
-    for region_name in REGION_NAMES:
+    for region_name in ALL_REGIONS:
         regions[region_name] = world.get_region(region_name)
 
-    # define Entrance connections between physical regions
-    regions["Crypt Spawn"].connect(regions["Crypt Stairway"], "Crypt Spawn exit")
-    regions["Crypt Stairway"].connect(regions["Crypt Sewer Gate"], "Crypt Stairway exit")
-    regions["Crypt Sewer Gate"].connect(regions["Crypt Valves"], "Crypt Sewer Gate exit")
-    regions["Crypt Valves"].connect(regions["Crypt Sewer Viaduct"], "Crypt Valves exit")
+    # define Entrance connections between scene regions
+    for src_id, dst_ids in ABBEY_SCENE_ENTRANCES:
+        src_scene = ABBEY_IDS_TO_SCENES[src_id]
+        
+        for dst_id in dst_ids:
+            dst_scene = ABBEY_IDS_TO_SCENES[dst_id]
+            regions[src_scene].connect(regions[dst_scene], f"{src_scene} to {dst_scene}")
+
 
     # define Entrance connections to rune regions
-    regions["Crypt Sewer Gate"].connect(regions["Devotee Rune 10"], "Crypt Sewer Gate rune A10")
-    regions["Crypt Sewer Gate"].connect(regions["Devotee Rune 11"], "Crypt Sewer Gate rune A11")
-    regions["Crypt Sewer Gate"].connect(regions["Devotee Rune 19"], "Crypt Sewer Gate rune A19")
-    regions["Crypt Valves"].connect(regions["Devotee Rune 10"], "Crypt Valves rune A10")
-    regions["Crypt Valves"].connect(regions["Devotee Rune 11"], "Crypt Valves rune A11")
+    for src_id, lang_runes in ABBEY_RUNE_ENTRANCES:
+        src_scene = ABBEY_IDS_TO_SCENES[src_id]
+
+        for lang, rune_ids in lang_runes:
+            for r in runes:
+                dst_rune = f"{lang} Rune {r+1}"
+                regions[src_scene].connect(regions[dst_rune], f"{src_scene} to {dst_rune}")
 
     # define Entrance connections to journal regions
-    regions["Crypt Valves"].connect(regions["Devotee Journal Page 01"], "Crypt Valves journal A01")
+    for page_name in DEVOTEE_PAGES:
+        regions[world.origin_region_name].connect(regions[page_name], f"{world.origin_region_name} to {page_name}")
