@@ -9,8 +9,6 @@ public class ArchipelagoData {
     public string Slot;
     public string Password;
 
-    public int Index;
-    public List<long> CheckedLocations;
     private string _seed;
     private Dictionary<string, object> _slotData;
     public bool NeedSlotData => _slotData == null;
@@ -18,14 +16,12 @@ public class ArchipelagoData {
     public ArchipelagoData() {
         Server = "localhost";
         Slot = "Player1";
-        CheckedLocations = new();
     }
 
     public ArchipelagoData(string server, string slot, string password) {
         Server = server;
         Slot = slot;
         Password = password;
-        CheckedLocations = new();
     }
 
     public void SetupSession(Dictionary<string, object> roomSlotData, string roomSeed) {

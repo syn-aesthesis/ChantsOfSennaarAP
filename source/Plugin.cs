@@ -3,14 +3,16 @@ using BepInEx.Logging;
 using HarmonyLib;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 using System.Collections.Generic;
+using Archipelago.MultiClient.Net.Models;
 
 namespace ChantsOfSennaarAP;
 
 [BepInPlugin(PluginGuid, PluginName, PluginVersion)]
 public class Plugin : BaseUnityPlugin {
     private const string PluginGuid = "gg.archipelago.chantsofsennaar";
-    private const string PluginName = "ChantsOfSennaarAP";
+    public const string PluginName = "ChantsOfSennaarAP";
     private const string PluginVersion = "0.1.0";
 
     private const string ModDisplayInfo = $"{PluginName} v{PluginVersion}";
@@ -20,6 +22,14 @@ public class Plugin : BaseUnityPlugin {
     public static ArchipelagoClient APClient;
     private readonly Harmony _harmony = new Harmony(PluginGuid);
         
+    private static readonly Dictionary<string, LanguageType> languageTypes = new() {
+        { "Devotee", LanguageType.DEVOTS },
+        { "Warrior", LanguageType.GUERRIERS },
+        { "Bard", LanguageType.BARDES },
+        { "Alchemist", LanguageType.ALCHIMISTES },
+        { "Anchorite", LanguageType.RECLUS },
+    };
+    
     private void Awake() {
         Logger = base.Logger;
         APClient = new ArchipelagoClient();
@@ -79,28 +89,35 @@ public class Plugin : BaseUnityPlugin {
     }
 
     void Update() {
-        while (ArchipelagoClient.TryGetReceivedItem(out string itemName))
-            GrantItem(itemName);
+        ArchipelagoClient.ApplyPendingItems(GrantItem);
     }
 
-    private void GrantItem(string itemName) {
-        var languageTypes = new Dictionary<string, LanguageType>() {
-            { "Devotee", LanguageType.DEVOTS },
-            { "Warrior", LanguageType.GUERRIERS },
-            { "Bard", LanguageType.BARDES },
-            { "Alchemist", LanguageType.ALCHIMISTES },
-            { "Anchorite", LanguageType.RECLUS },
-        };
-
-        var itemParts = itemName.Split(' ');
-
+    // Returns true when handled, false to retry next frame
+    private bool GrantItem(ItemInfo item) {
+        var parts = item.ItemName.Split(' ');
+        
         // Handle runes
-        if (itemParts.Length == 3) {
-            if (itemParts[1] == "Rune") {
-                GameController.GetInstance().GetLanguageController().GetLanguageData(languageTypes[itemParts[0]])
-                    .AddRuneIfUnknown(int.Parse(itemParts[2]) - 1);
+        if (parts.Length == 3) {
+            if (parts[1] == "Rune") {
+                if (!languageTypes.TryGetValue(parts[0], out var lang) || 
+                    !int.TryParse(parts[2], out var runeNum)) {
+                    Logger.LogWarning($"Unrecognised rune item: {item.ItemName}");
+                    return true;
+                }
+
+                try {
+                    GameController.GetInstance().GetLanguageController().GetLanguageData(lang)
+                        .AddRuneIfUnknown(runeNum);
+                    return true;
+                }
+                catch (Exception e) {
+                    Logger.LogWarning($"Couldn't grant {item.ItemName} yet: {e.Message}");
+                    return false;
+                }
             }
         }
-        
+
+        // All other items
+        return true;
     }
 }
