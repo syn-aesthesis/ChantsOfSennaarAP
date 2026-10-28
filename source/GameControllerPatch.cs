@@ -6,7 +6,8 @@ namespace ChantsOfSennaarAP;
 internal class GameControllerPatch {
     [HarmonyPatch(nameof(GameController.Init))]
     [HarmonyPostfix]
-    static void FlagSplashFinished(GameController __instance) {
+    static void ShowClientGUI(GameController __instance) {
         Plugin.SplashFinished = true;
+        ArchipelagoConsole.LogMessage($"{Plugin.ModDisplayInfo} loaded!");
     }
 }

@@ -15,7 +15,7 @@ public class Plugin : BaseUnityPlugin {
     public const string PluginName = "ChantsOfSennaarAP";
     private const string PluginVersion = "0.1.0";
 
-    private const string ModDisplayInfo = $"{PluginName} v{PluginVersion}";
+    public const string ModDisplayInfo = $"{PluginName} v{PluginVersion}";
     private const string APDisplayInfo = $"Archipelago v{ArchipelagoClient.APVersion}";
     
     public new static ManualLogSource Logger;
@@ -53,7 +53,6 @@ public class Plugin : BaseUnityPlugin {
         // show in the corner that the mod is currently loaded
         GUI.Label(new Rect(16, 16, 300, 20), ModDisplayInfo);
         ArchipelagoConsole.OnGUI();
-        ArchipelagoConsole.LogMessage($"{ModDisplayInfo} loaded!");
 
         // show the Archipelago version and whether we're connected or not
         string statusMessage;
