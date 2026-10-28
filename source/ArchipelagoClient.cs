@@ -158,29 +158,6 @@ public class ArchipelagoClient {
         Disconnect();
     }
 
-
-    // Enqueue items received by slot for granting in-game
-    // private void OnItemReceived(ReceivedItemsHelper helper) {
-    //     var receivedItem = helper.DequeueItem();
-    //     if (helper.Index <= ServerData.Index)
-    //         return;
-    //     ServerData.Index++;
-    //
-    //     ItemsPending.Enqueue(receivedItem.ItemName);
-    //     Plugin.Logger.LogDebug($"Item enqueued for receiving: {receivedItem.ItemName}");
-    // }
-    //
-    // // Handle enqueued items; called from Update() in main thread
-    // public static bool TryGetReceivedItem(out string itemName) {
-    //     if (ItemsPending.Count > 0) {
-    //         itemName = ItemsPending.Dequeue();
-    //         return true;
-    //     }
-    //
-    //     itemName = null;
-    //     return false;
-    // }
-
     public static void ApplyPendingItems(Func<ItemInfo, bool> tryGrant) {
         var session = _session;
         if (!Authenticated || session == null)
@@ -198,6 +175,8 @@ public class ArchipelagoClient {
             _itemsApplied++;
         }
     }
+
+    public static void ResetItemsApplied() => _itemsApplied = 0;
 
     // Enqueue current check for sending; called from Harmony patches
     public static void SendCheck(string locationName) {
