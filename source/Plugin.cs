@@ -21,7 +21,8 @@ public class Plugin : BaseUnityPlugin {
     public new static ManualLogSource Logger;
     public static ArchipelagoClient APClient;
     private readonly Harmony _harmony = new Harmony(PluginGuid);
-        
+
+    public static bool SplashFinished = false;
     private static readonly Dictionary<string, LanguageType> languageTypes = new() {
         { "Devotee", LanguageType.DEVOTS },
         { "Warrior", LanguageType.GUERRIERS },
@@ -34,7 +35,6 @@ public class Plugin : BaseUnityPlugin {
         Logger = base.Logger;
         APClient = new ArchipelagoClient();
         ArchipelagoConsole.Awake();
-        ArchipelagoConsole.LogMessage($"{ModDisplayInfo} loaded!");
 
         SceneManager.sceneLoaded += OnSceneLoaded;
         
@@ -47,9 +47,13 @@ public class Plugin : BaseUnityPlugin {
     }
 
     private void OnGUI() {
+        if (!SplashFinished)
+            return;
+        
         // show in the corner that the mod is currently loaded
         GUI.Label(new Rect(16, 16, 300, 20), ModDisplayInfo);
         ArchipelagoConsole.OnGUI();
+        ArchipelagoConsole.LogMessage($"{ModDisplayInfo} loaded!");
 
         // show the Archipelago version and whether we're connected or not
         string statusMessage;
