@@ -107,7 +107,7 @@ public class Plugin : BaseUnityPlugin {
 
                 try {
                     GameController.GetInstance().GetLanguageController().GetLanguageData(lang)
-                        .AddRuneIfUnknown(runeNum);
+                        .AddRuneIfUnknown(runeNum - 1);
                     return true;
                 }
                 catch (Exception e) {
