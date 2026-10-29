@@ -139,6 +139,15 @@ LANG_ID_VAL = {
     "Anchorite": 500,
 }
 
+PROG_KEY_ITEMS = ["Cellar Key", "Lens", "Workshop Key"]
+USEFUL_KEY_ITEMS = []
+FILLER_KEY_ITEMS = ["Vase Plan"]
+
+PROG_ITEMS = RUNE_REGIONS + PROG_KEY_ITEMS
+
+TRAP_ITEMS = ["Bonk"]
+FILLER_ITEMS = ["Gibberish"]
+
 for rune in RUNE_REGIONS:
     rune_lang = rune.split(' ')[0]
     rune_num = int(rune.split(' ')[-1])
@@ -153,17 +162,29 @@ for page in PAGE_REGIONS:
         500 + LANG_ID_VAL[page_lang] + page_num
     )
 
-TRAP_ITEM_NAMES = ["Bonk"]
-FILLER_ITEM_NAMES = ["Gibberish"]
+for p in range(len(PROG_KEY_ITEMS)):
+    prog = PROG_KEY_ITEMS[p]
+    ITEM_NAME_TO_ID[prog] = 2100 + p
+    DEFAULT_ITEM_CLASSIFICATIONS[prog] = ItemClassification.useful
 
-for t in len(TRAP_ITEM_NAMES):
-    trap = TRAP_ITEM_NAMES[t]
-    ITEM_NAME_TO_ID[trap] = 2000 + t
+for u in range(len(USEFUL_KEY_ITEMS)):
+    useful = USEFUL_KEY_ITEMS[u]
+    ITEM_NAME_TO_ID[useful] = 2200 + u
+    DEFAULT_ITEM_CLASSIFICATIONS[useful] = ItemClassification.useful
+
+for f in range(len(FILLER_KEY_ITEMS)):
+    filler = FILLER_ITEMS[f]
+    ITEM_NAME_TO_ID[filler] = 2300 + f
+    DEFAULT_ITEM_CLASSIFICATIONS[filler] = ItemClassification.filler
+
+for t in range(len(TRAP_ITEMS)):
+    trap = TRAP_ITEMS[t]
+    ITEM_NAME_TO_ID[trap] = 2400 + t
     DEFAULT_ITEM_CLASSIFICATIONS[trap] = ItemClassification.trap
 
-for f in len(FILLER_ITEM_NAMES):
-    filler = FILLER_ITEM_NAMES[f]
-    ITEM_NAME_TO_ID[filler] = 3000 + f
+for f in range(len(FILLER_ITEMS)):
+    filler = FILLER_ITEMS[f]
+    ITEM_NAME_TO_ID[filler] = 2500 + f
     DEFAULT_ITEM_CLASSIFICATIONS[filler] = ItemClassification.filler
 
 

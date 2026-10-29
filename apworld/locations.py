@@ -5,25 +5,7 @@ from . import items
 if TYPE_CHECKING:
     from .world import ChantsOfSennaarWorld
 
-
-LOCATION_NAME_TO_ID = {
-    "Observe Devotee Rune 10": 110,
-    "Observe Devotee Rune 11": 111,
-    "Observe Devotee Rune 19": 119,
-    "Complete Devotee Journal Page 01": 501,
-}
-
-REGION_NAMES = [
-    "Crypt Spawn",
-    "Crypt Stairway",
-    "Crypt Sewer Gate",
-    "Crypt Valves",
-    "Crypt Sewer Viaduct",
-    "Devotee Rune 10",
-    "Devotee Rune 11",
-    "Devotee Rune 19",
-    "Devotee Journal Page 01",
-]
+from .cos_data import *
 
 
 class ChantsOfSennaarLocation(Location):
@@ -42,17 +24,15 @@ def create_all_locations(world: ChantsOfSennaarWorld) -> None:
 
 def create_regular_locations(world: ChantsOfSennaarWorld) -> None:
     regions: dict[str, Region] = {}
-    for region_name in REGION_NAMES:
+    for region_name in ALL_REGIONS:
         regions[region_name] = world.get_region(region_name)
 
     rune_locations: dict[str, list[str]] = {
-        "Devotee Rune 10": ["Observe Devotee Rune 10"],
-        "Devotee Rune 11": ["Observe Devotee Rune 11"],
-        "Devotee Rune 19": ["Observe Devotee Rune 19"],
+        rune: [f"Observe {rune}"] for rune in RUNE_REGIONS
     }
 
     page_locations: dict[str, list[str]] = {
-        "Devotee Journal Page 01": ["Complete Devotee Journal Page 01"],
+        page: [f"Complete {page}"] for page in PAGE_REGIONS
     }
 
     region_locations = rune_locations | page_locations

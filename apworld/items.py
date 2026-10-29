@@ -13,8 +13,8 @@ class ChantsOfSennaarItem(Item):
 
 def get_random_filler_item_name(world: ChantsOfSennaarWorld) -> str:
     if world.random.randint(0, 99) < world.options.trap_chance:
-        return world.random.choice(TRAP_ITEM_NAMES)
-    return world.random.choice(FILLER_ITEM_NAMES)
+        return world.random.choice(TRAP_ITEMS)
+    return world.random.choice(FILLER_ITEMS)
 
 
 def create_item_with_correct_classification(world: ChantsOfSennaarWorld, 
@@ -27,9 +27,7 @@ def create_item_with_correct_classification(world: ChantsOfSennaarWorld,
 
 def create_all_items(world: ChantsOfSennaarWorld) -> None:
     itempool: list[Item] = [
-        world.create_item("Devotee Rune 10"),
-        world.create_item("Devotee Rune 11"),
-        world.create_item("Devotee Rune 19")
+        world.create_item(prog) for prog in PROG_ITEMS
     ]
 
     num_items = len(itempool)

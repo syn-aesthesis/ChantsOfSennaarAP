@@ -45,7 +45,7 @@ def connect_regions(world: ChantsOfSennaarWorld) -> None:
                                            f"{src_scene} to {dst_rune}")
 
     # define Entrance connections to journal regions
-    for page_name in DEVOTEE_PAGES:
+    for page_name in PAGE_REGIONS:
         origin = world.origin_region_name
         regions[origin].connect(regions[page_name], 
                                 f"{world.origin_region_name} to {page_name}")
