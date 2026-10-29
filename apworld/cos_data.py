@@ -165,7 +165,7 @@ for page in PAGE_REGIONS:
 for p in range(len(PROG_KEY_ITEMS)):
     prog = PROG_KEY_ITEMS[p]
     ITEM_NAME_TO_ID[prog] = 2100 + p
-    DEFAULT_ITEM_CLASSIFICATIONS[prog] = ItemClassification.useful
+    DEFAULT_ITEM_CLASSIFICATIONS[prog] = ItemClassification.progression
 
 for u in range(len(USEFUL_KEY_ITEMS)):
     useful = USEFUL_KEY_ITEMS[u]
