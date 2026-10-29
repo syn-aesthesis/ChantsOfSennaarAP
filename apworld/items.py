@@ -33,10 +33,12 @@ def get_random_filler_item_name(world: ChantsOfSennaarWorld) -> str:
     return "[unreadable]"
 
 
-def create_item_with_correct_classification(world: ChantsOfSennaarWorld, name: str) -> ChantsOfSennaarItem:
+def create_item_with_correct_classification(world: ChantsOfSennaarWorld, 
+                                            name: str) -> ChantsOfSennaarItem:
     classification = DEFAULT_ITEM_CLASSIFICATIONS[name]
 
-    return ChantsOfSennaarItem(name, classification, ITEM_NAME_TO_ID[name], world.player)
+    return ChantsOfSennaarItem(name, classification, ITEM_NAME_TO_ID[name], 
+                               world.player)
 
 
 def create_all_items(world: ChantsOfSennaarWorld) -> None:
@@ -46,10 +48,10 @@ def create_all_items(world: ChantsOfSennaarWorld) -> None:
         world.create_item("Devotee Rune 19")
     ]
 
-    number_of_items = len(itempool)
-    number_of_unfilled_locations = len(world.multiworld.get_unfilled_locations(world.player))
-    needed_number_of_filler_items = number_of_unfilled_locations - number_of_items
+    num_items = len(itempool)
+    num_unfilled = len(world.multiworld.get_unfilled_locations(world.player))
+    num_filler_items = num_unfilled - num_items
 
-    itempool += [world.create_filler() for _ in range(needed_number_of_filler_items)]
+    itempool += [world.create_filler() for _ in range(num_filler_items)]
 
     world.multiworld.itempool += itempool

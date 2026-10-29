@@ -6,8 +6,9 @@ from . import options as chantsofsennaar_options
 
 class ChantsOfSennaarWorld(World):
     """
-    Chants of Sennaar is a puzzle adventure game inspired by the Tower of Babel.
-    Observe, listen, and decipher ancient languages on a quest to reunite the Peoples of the Tower.
+    Chants of Sennaar is a puzzle adventure game inspired by the mythological
+    Tower of Babel. Observe, listen, and decipher ancient languages on a quest 
+    to reunite the Peoples of the Tower.
     """
 
     game = "Chants of Sennaar"
