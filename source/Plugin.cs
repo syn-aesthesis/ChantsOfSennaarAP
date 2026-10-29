@@ -13,7 +13,7 @@ namespace ChantsOfSennaarAP;
 public class Plugin : BaseUnityPlugin {
     private const string PluginGuid = "gg.archipelago.chantsofsennaar";
     public const string PluginName = "ChantsOfSennaarAP";
-    private const string PluginVersion = "0.1.0";
+    private const string PluginVersion = "0.1.1";
 
     public const string ModDisplayInfo = $"{PluginName} v{PluginVersion}";
     private const string APDisplayInfo = $"Archipelago v{ArchipelagoClient.APVersion}";
