@@ -5,6 +5,7 @@ from Options import Choice, OptionGroup, PerGameCommonOptions, Range, Toggle
 class GoalType(Choice):
     """
     Defines the goal condition.
+    As of v0.2.0: Only the 'journal_hunt' goal has been implemented.
     """
 
     display_name = "Goal Type"
@@ -20,6 +21,7 @@ class JournalHuntPageCount(Range):
     """
     If journal_hunt is chosen as the goal type,
     defines the number of complete journal pages needed to goal.
+    As of v0.2.0: Only page counts 1 to 11 have been implemented.
     """
 
     display_name = "Journal Hunt Page Count"
@@ -33,6 +35,7 @@ class JournalHuntPageCount(Range):
 class TrapChance(Range):
     """
     Percent chance that any given filler item will be replaced by a trap item.
+    As of v0.2.0: Trap items do not currently have any effect on the game.
     """
 
     display_name = "Trap Chance"
