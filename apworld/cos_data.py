@@ -35,7 +35,7 @@ FORTRESS_SCENES = []
 GARDENS_SCENES = []
 FACTORY_SCENES = []
 EXILE_SCENES = []
-SCENE_REGIONS = ABBEY_SCENES + FORTRESS_SCENES + GARDENS_SCENES + 
+SCENE_REGIONS = ABBEY_SCENES + FORTRESS_SCENES + GARDENS_SCENES + \
     FACTORY_SCENES + EXILE_SCENES
 
 DEVOTEE_RUNES = [f"Devotee Rune {(r+1):02d}" for r in range(34)]
@@ -43,7 +43,7 @@ WARRIOR_RUNES = [f"Warrior Rune {(r+1):02d}" for r in [1, 14, 18, 20]]
 BARD_RUNES = []
 ALCHEMIST_RUNES = []
 ANCHORITE_RUNES = []
-RUNE_REGIONS = DEVOTEE_RUNES + WARRIOR_RUNES + BARD_RUNES + ALCHEMIST_RUNES + 
+RUNE_REGIONS = DEVOTEE_RUNES + WARRIOR_RUNES + BARD_RUNES + ALCHEMIST_RUNES + \
     ANCHORITE_RUNES
 
 DEVOTEE_PAGES = [f"Devotee Journal Page {(p+1):02d}" for p in range(6)]
@@ -51,7 +51,7 @@ WARRIOR_PAGES = []
 BARD_PAGES = []
 ALCHEMIST_PAGES = []
 ANCHORITE_PAGES = []
-PAGE_REGIONS = DEVOTEE_PAGES + WARRIOR_PAGES + BARD_PAGES + ALCHEMIST_PAGES + 
+PAGE_REGIONS = DEVOTEE_PAGES + WARRIOR_PAGES + BARD_PAGES + ALCHEMIST_PAGES + \
     ANCHORITE_PAGES
 
 ALL_REGIONS = SCENE_REGIONS + RUNE_REGIONS + PAGE_REGIONS
@@ -87,18 +87,18 @@ ABBEY_SCENE_ENTRANCES = {
     "A25": ["A20", "A26", "A27"],
     "A26": ["A25"],
     "A27": ["A25", "A28"],
-    "A28": ["A27", "A29"], # B04
+    "A28": ["A27", "A29"],  # B04
     "A29": ["A28"],
     "A30": ["A12", "A19"],
-    "A31": ["A16"], # E21
+    "A31": ["A16"],  # E21
 }
 ABBEY_RUNE_ENTRANCES = {
     "A03": [("Devotee", [9, 10, 18])],
     "A04": [("Devotee", [9, 10])],
     "A06": [("Devotee", [3, 4, 9, 10, 12, 16, 18, 22])],
     "A07": [("Devotee", [0, 2, 4, 5, 6, 10, 11, 14, 15, 18, 21, 22, 27, 28])],
-    "A08": [("Devotee", [0, 1, 3, 4, 5, 12, 14, 15, 18, 21]), ("Warrior", [1, 
-        14, 18, 20])],
+    "A08": [("Devotee", [0, 1, 3, 4, 5, 12, 14, 15, 18, 21]), 
+            ("Warrior", [1, 14, 18, 20])],
     "A09": [("Devotee", [0, 5, 6, 27])],
     "A10": [("Devotee", [1, 3, 4, 14, 26, 31])],
     "A11": [("Devotee", [3, 4, 15])],
@@ -111,7 +111,7 @@ ABBEY_RUNE_ENTRANCES = {
     "A20": [("Devotee", [23, 24, 25])],
     "A21": [("Devotee", [3, 17, 20, 22, 29, 32, 33])],
     "A22": [("Devotee", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 
-        16, 17, 18, 20, 23, 24, 25, 26, 27, 28, 29])],
+                         16, 17, 18, 20, 23, 24, 25, 26, 27, 28, 29])],
     "A23": [("Devotee", [1, 7, 24])],
     "A24": [("Devotee", [0, 3, 7, 12, 14, 19, 21, 25, 32])],
     "A25": [("Devotee", [0, 4, 15])],

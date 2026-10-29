@@ -21,13 +21,13 @@ def set_all_entrance_rules(world: ChantsOfSennaarWorld) -> None:
     )
 
     # set journal page conditions
-    for p in len(DEVOTEE_PAGES):
+    for p in range(len(DEVOTEE_PAGES)):
         page_name = DEVOTEE_PAGES[p]
         page_runes = [f"Devotee Rune {r+1}:02d" for r in DEVOTEE_PAGE_RUNES[p]]
         origin = world.origin_region_name
         world.set_rule(
             world.get_entrance(f"{origin} to {page_name}"), 
-            HasAll(page_runes)
+            HasAll(*page_runes)
         )
 
 

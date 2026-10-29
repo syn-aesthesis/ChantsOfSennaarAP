@@ -58,9 +58,10 @@ def create_regular_locations(world: ChantsOfSennaarWorld) -> None:
     region_locations = rune_locations | page_locations
 
     for region_name, location_names in region_locations.items():
-        regions[region_name].add_locations(get_location_names_with_ids(
-                                           location_names), 
-                                           ChantsOfSennaarLocation)
+        regions[region_name].add_locations(
+            get_location_names_with_ids(location_names), 
+            ChantsOfSennaarLocation
+        )
 
 
 def create_events(world: ChantsOfSennaarWorld) -> None:
