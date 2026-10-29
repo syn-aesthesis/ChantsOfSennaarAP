@@ -15,10 +15,13 @@ def set_all_rules(world: ChantsOfSennaarWorld) -> None:
 
 def set_all_entrance_rules(world: ChantsOfSennaarWorld) -> None:
     # set scene access conditions
-    world.set_rule(  # A04 -> A05
-        world.get_entrance("Crypt Valves to Crypt Sewer Viaduct"), 
-        HasAll("Devotee Rune 10", "Devotee Rune 11", "Devotee Rune 19")
-    )
+
+    # Devotee Journal Page 01 gate causes restrictive starts, fill errors
+    # world.set_rule(  # A04 -> A05
+    #     world.get_entrance("Crypt Valves to Crypt Sewer Viaduct"), 
+    #     HasAll("Devotee Rune 10", "Devotee Rune 11", "Devotee Rune 19")
+    # )
+    
     world.set_rule(  # A13 -> A22
         world.get_entrance("Abbey Forecourt to Abbey Church"),
         Has("Lens")  # TODO: separate church runes into two regions
