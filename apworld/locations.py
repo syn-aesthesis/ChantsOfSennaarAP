@@ -44,12 +44,17 @@ def create_regular_locations(world: ChantsOfSennaarWorld) -> None:
     for region_name in REGION_NAMES:
         regions[region_name] = world.get_region(region_name)
 
-    region_locations: dict[str, list[str]] = {
+    rune_locations: dict[str, list[str]] = {
         "Devotee Rune 10": ["Observe Devotee Rune 10"],
         "Devotee Rune 11": ["Observe Devotee Rune 11"],
         "Devotee Rune 19": ["Observe Devotee Rune 19"],
+    }
+
+    page_locations: dict[str, list[str]] = {
         "Devotee Journal Page 01": ["Complete Devotee Journal Page 01"],
     }
+
+    region_locations = rune_locations | page_locations
 
     for region_name, location_names in region_locations.items():
         regions[region_name].add_locations(get_location_names_with_ids(location_names), ChantsOfSennaarLocation)
