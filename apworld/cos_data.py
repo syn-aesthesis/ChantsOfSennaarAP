@@ -1,3 +1,8 @@
+from BaseClasses import ItemClassification
+
+
+# ----- regions.py -----
+
 ABBEY_SCENES = [
     "Crypt Spawn",
     "Crypt Stairway",
@@ -46,7 +51,7 @@ ANCHORITE_RUNES = []
 RUNE_REGIONS = DEVOTEE_RUNES + WARRIOR_RUNES + BARD_RUNES + ALCHEMIST_RUNES + \
     ANCHORITE_RUNES
 
-DEVOTEE_PAGES = [f"Devotee Journal Page {(p+1):02d}" for p in range(6)]
+DEVOTEE_PAGES = [f"Devotee Journal Page {(p+1):02d}" for p in range(11)]
 WARRIOR_PAGES = []
 BARD_PAGES = []
 ALCHEMIST_PAGES = []
@@ -120,11 +125,60 @@ ABBEY_RUNE_ENTRANCES = {
 }
 
 
-DEVOTEE_PAGE_RUNES = [   # TODO: check actual page indices
+# ----- locations.py, items.py -----
+
+LOCATION_NAME_TO_ID = {}
+ITEM_NAME_TO_ID = {}
+DEFAULT_ITEM_CLASSIFICATIONS = {}
+
+LANG_ID_VAL = {
+    "Devotee": 100,
+    "Warrior": 200,
+    "Bard": 300,
+    "Alchemist": 400,
+    "Anchorite": 500,
+}
+
+for rune in RUNE_REGIONS:
+    rune_lang = rune.split(' ')[0]
+    rune_num = int(rune.split(' ')[-1])
+    LOCATION_NAME_TO_ID[f"Observe {rune}"] = LANG_ID_VAL[rune_lang] + rune_num
+    ITEM_NAME_TO_ID[rune] = LANG_ID_VAL[rune_lang] + rune_num
+    DEFAULT_ITEM_CLASSIFICATIONS[rune] = ItemClassification.progression
+
+for page in PAGE_REGIONS:
+    page_lang = page.split(' ')[0]
+    page_num = int(page.split(' ')[-1])
+    LOCATION_NAME_TO_ID[f"Complete {page}"] = (
+        500 + LANG_ID_VAL[page_lang] + page_num
+    )
+
+TRAP_ITEM_NAMES = ["Bonk"]
+FILLER_ITEM_NAMES = ["Gibberish"]
+
+for t in len(TRAP_ITEM_NAMES):
+    trap = TRAP_ITEM_NAMES[t]
+    ITEM_NAME_TO_ID[trap] = 2000 + t
+    DEFAULT_ITEM_CLASSIFICATIONS[trap] = ItemClassification.trap
+
+for f in len(FILLER_ITEM_NAMES):
+    filler = FILLER_ITEM_NAMES[f]
+    ITEM_NAME_TO_ID[filler] = 3000 + f
+    DEFAULT_ITEM_CLASSIFICATIONS[filler] = ItemClassification.filler
+
+
+# ----- rules.py -----
+
+DEVOTEE_PAGE_RUNES = [
     [9, 10, 18],
     [3, 4, 22],
-    [0, 5, 6, 22],
+    [0, 5, 6, 27],
     [12, 14, 15],
     [1, 21, 31],
     [8, 11, 13, 16],
+    [23, 24, 25, 26],
+    [2, 7, 28],
+    [17, 19, 20, 32],
+    [29, 30, 33],
+    []
 ]

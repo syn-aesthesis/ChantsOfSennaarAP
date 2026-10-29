@@ -1,26 +1,10 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
-from BaseClasses import Item, ItemClassification
+from BaseClasses import Item
 if TYPE_CHECKING:
     from .world import ChantsOfSennaarWorld
 
-
-ITEM_NAME_TO_ID = {
-    "Devotee Rune 10": 110,
-    "Devotee Rune 11": 111,
-    "Devotee Rune 19": 119,
-    "[unreadable]": 1001,
-    "Bonk": 1002
-}
-
-
-DEFAULT_ITEM_CLASSIFICATIONS = {
-    "Devotee Rune 10": ItemClassification.progression,
-    "Devotee Rune 11": ItemClassification.progression,
-    "Devotee Rune 19": ItemClassification.progression,
-    "[unreadable]": ItemClassification.filler,
-    "Bonk": ItemClassification.trap
-}
+from .cos_data import *
 
 
 class ChantsOfSennaarItem(Item):
@@ -29,8 +13,8 @@ class ChantsOfSennaarItem(Item):
 
 def get_random_filler_item_name(world: ChantsOfSennaarWorld) -> str:
     if world.random.randint(0, 99) < world.options.trap_chance:
-        return "Bonk"
-    return "[unreadable]"
+        return world.random.choice(TRAP_ITEM_NAMES)
+    return world.random.choice(FILLER_ITEM_NAMES)
 
 
 def create_item_with_correct_classification(world: ChantsOfSennaarWorld, 
