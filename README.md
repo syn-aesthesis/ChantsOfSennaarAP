@@ -2,8 +2,8 @@
 
 An [Archipelago Multiworld](https://github.com/ArchipelagoMW/Archipelago) implementation for Chants of Sennaar
 
-- **Status:** In development, _not playable_
-- **Latest release:** 0.1.0 (Proof of concept)
+- **Status:** Playable alpha, unstable
+- **Latest release:** 0.2.0 (Floor 1 implementation)
 
 
 ## Mod installation guide (Windows)
@@ -16,6 +16,12 @@ An [Archipelago Multiworld](https://github.com/ArchipelagoMW/Archipelago) implem
 
 
 ## About this AP implementation
+
+What is currently implemented?
+- Versions 0.2.x contain the initial implementation of Floor 1.
+
+What do the yaml options do?
+- In Versions 0.2.x, the `goal_type` is fixed to `journal_hunt` with a `journal_hunt_page_count` ranging from 1 to 10. Any other options selected do not currently affect the behavior of the mod.
 
 What count as "checks" in this game?
 - Each new rune observed is one check.
@@ -36,6 +42,7 @@ What else is randomized in this game?
 - This implementation is not vibe-coded.
 - This implementation does not contain any AI-generated images, 3D models, or music.
 - I write source code in an IDE with light AI functionalities, which I use to complete lines, correct typos, and refactor variable names. I review any such modifications for correct syntax and functionality prior to committing any code.
+- I use LLM tools to better understand software engineering practices and specific functionalities of common frameworks and libraries that are unfamiliar to me. I cross-check this information against published documentation and credible source materials.
 - This mod depends on files and templates from the [BepInEx modding framework](https://github.com/BepInEx/BepInEx) and [Archipelago.MultiClient.Net library](https://github.com/ArchipelagoMW/Archipelago.MultiClient.Net). I cannot personally verify the extent to which these external projects may or may not have used AI in their development.
 
 
