@@ -21,15 +21,15 @@ class JournalHuntPageCount(Range):
     """
     If journal_hunt is chosen as the goal type,
     defines the number of complete journal pages needed to goal.
-    As of v0.2.0: Only page counts 1 to 11 have been implemented.
+    As of v0.2.0: Only page counts 1 to 10 have been implemented.
     """
 
     display_name = "Journal Hunt Page Count"
 
     range_start = 1
-    range_end = 55
+    range_end = 10
 
-    default = 1
+    default = 10
 
 
 class TrapChance(Range):

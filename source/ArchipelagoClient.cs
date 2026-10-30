@@ -1,13 +1,10 @@
 using System;
 using System.Linq;
 using System.Threading;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Archipelago.MultiClient.Net;
 using Archipelago.MultiClient.Net.BounceFeatures.DeathLink;
 using Archipelago.MultiClient.Net.Enums;
-using Archipelago.MultiClient.Net.Helpers;
-using Archipelago.MultiClient.Net.MessageLog.Messages;
 using Archipelago.MultiClient.Net.Models;
 using Archipelago.MultiClient.Net.Packets;
 
@@ -29,11 +26,11 @@ public class ArchipelagoClient {
     public static ArchipelagoSave SaveData;
     private static int _itemsApplied;
 
-    public static readonly HashSet<string> ChecksSentThisSession = new HashSet<string>();
-    public static readonly Queue<string> ChecksPending = new Queue<string>();
+    public static readonly HashSet<string> ChecksSentThisSession = new();
+    public static readonly Queue<string> ChecksPending = new();
 
-    private long _goalType;
-
+    private static long _goalType;
+    private static long _journalHuntPageCount;
 
     // Call to connect to an Archipelago session (connection info should already be set up on ServerData)
     public void Connect() {
@@ -143,6 +140,9 @@ public class ArchipelagoClient {
             if (connectedPacket.SlotData.TryGetValue("goal_type", out object goalOption)) {
                 _goalType = (long)goalOption;
             }
+            if (connectedPacket.SlotData.TryGetValue("journal_hunt_page_count", out object pageCount)) {
+                _journalHuntPageCount = (long)pageCount;
+            }
         }
     }
 
@@ -158,22 +158,26 @@ public class ArchipelagoClient {
         Disconnect();
     }
 
-    public static void ApplyPendingItems(Func<ItemInfo, bool> tryGrant) {
+    public static bool ApplyPendingItems(Func<ItemInfo, bool> tryGrant) {
         var session = _session;
         if (!Authenticated || session == null)
-            return;
+            return false;
 
         var all = session.Items.AllItemsReceived.ToList();
         int count = all.Count;
+        bool granted = false;
 
         if (count < _itemsApplied)
             _itemsApplied = 0;
-
+        
         while (_itemsApplied < count) {
             if (!tryGrant(all[_itemsApplied]))
                 break;
             _itemsApplied++;
+            granted = true;
         }
+
+        return granted;
     }
 
     public static void ResetItemsApplied() => _itemsApplied = 0;
@@ -213,9 +217,20 @@ public class ArchipelagoClient {
             _session.Locations.CompleteLocationChecks(ids.ToArray());
             Plugin.Logger.LogDebug($"Checks sent: {string.Join(", ", ids)}");
         }
+
+        CheckGoal();
     }
 
-    // Sends goal packet; called from Harmony patches
+    private static int JournalPagesChecked() =>
+        _session.Locations.AllLocationsChecked.Count(id => id is >= 600 and <= 1100);
+    
+    private static void CheckGoal() {
+        // TODO: Add conditionals for other goals
+        if (JournalPagesChecked() > _journalHuntPageCount)
+            SendGoalPacket();
+    }
+
+    // Sends goal packet; can be called from Harmony patches
     public static void SendGoalPacket() {
         if (SaveData != null) {
             SaveData.GoalReached = true;
@@ -226,7 +241,7 @@ public class ArchipelagoClient {
 
     private static void TrySendGoal() {
         var session = _session;
-        if (!Authenticated || session.Socket.Connected != true)
+        if (!Authenticated || !session.Socket.Connected)
             return;
         _session.Socket.SendPacketAsync(new StatusUpdatePacket {
             Status = ArchipelagoClientState.ClientGoal

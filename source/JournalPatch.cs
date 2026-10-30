@@ -1,7 +1,5 @@
 using HarmonyLib;
 using System.Collections.Generic;
-using Archipelago.MultiClient.Net.Enums;
-using Archipelago.MultiClient.Net.Packets;
 
 namespace ChantsOfSennaarAP;
 
@@ -35,12 +33,8 @@ internal class JournalPatch
         if (pageId == -1)
             return;
         
-        Plugin.Logger.LogInfo($"Completed page: " +
-                              $"{lang} {pageId}");
+        Plugin.Logger.LogInfo($"Completed page: {lang} {pageId}");
         
         ArchipelagoClient.SendCheck($"Complete {Languages[lang.ToString()]} Journal Page {(pageId+1):00}");
-        
-        // TODO: Revise to check goal_type and journal_hunt_page_count settings before goaling
-        ArchipelagoClient.SendGoalPacket();
     }
 }
