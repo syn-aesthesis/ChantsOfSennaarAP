@@ -18,17 +18,14 @@ internal class LanguageDataPatch
     [HarmonyPrefix]
     static void ReceiveRune(LanguageData __instance, ref int runeId)
     {
-        Plugin.Logger.LogInfo($"Receiving rune: " +
-                              $"{__instance.GetLanguageType()} {runeId}");
+        Plugin.Logger.LogInfo($"Receiving rune: {__instance.GetLanguageType()} {runeId}");
     }
 
     [HarmonyPatch(nameof(LanguageData.AddRunes), new[] { typeof(int[]) })]
     [HarmonyPrefix]
     static bool ObserveRunes(LanguageData __instance, ref int[] runes)
     {
-        Plugin.Logger.LogInfo($"Observing runes: " +
-                              $"{__instance.GetLanguageType()} {string.Join(",", runes)}");
-
+        // Plugin.Logger.LogInfo($"Observing runes: {__instance.GetLanguageType()} {string.Join(",", runes)}");
         foreach (var rune in runes) {
             ArchipelagoClient.SendCheck($"Observe {Languages[__instance.GetLanguageType().ToString()]} " + 
                                         $"Rune {(rune+1):00}");
@@ -40,9 +37,7 @@ internal class LanguageDataPatch
     [HarmonyPrefix]
     static bool ObserveRunes(LanguageData __instance, ref SpeechLine line)
     {
-        Plugin.Logger.LogInfo($"Observing runes: " +
-                              $"{__instance.GetLanguageType()} {string.Join(",",line.runes)}");
-
+        // Plugin.Logger.LogInfo($"Observing runes: {__instance.GetLanguageType()} {string.Join(",",line.runes)}");
         foreach (var rune in line.runes) {
             ArchipelagoClient.SendCheck($"Observe {Languages[__instance.GetLanguageType().ToString()]} " + 
                                         $"Rune {(rune+1):00}");
