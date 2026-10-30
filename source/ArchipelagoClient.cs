@@ -12,7 +12,7 @@ namespace ChantsOfSennaarAP;
 
 // based on ArchipelagoBepInExPluginTemplate https://github.com/alwaysintreble/ArchipelagoBepInExPluginTemplate/
 public class ArchipelagoClient {
-    public const string APVersion = "0.6.7";
+    public const string APVersion = "0.6.8";
     private const string Game = "Chants of Sennaar";
 
     public static bool Authenticated;
