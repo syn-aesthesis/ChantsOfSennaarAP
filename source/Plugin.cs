@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using System;
 using System.Collections.Generic;
 using Archipelago.MultiClient.Net.Models;
+using OP = AbstractInteractiveState.OperadedOperator;
 
 namespace ChantsOfSennaarAP;
 
@@ -30,6 +31,13 @@ public class Plugin : BaseUnityPlugin {
         { "Alchemist", LanguageType.ALCHIMISTES },
         { "Anchorite", LanguageType.RECLUS },
     };
+    private static readonly Dictionary<string, ItemType> itemTypes = new() {
+        { "Cellar Key", ItemType.CELLAR_KEY },
+        { "Lens", ItemType.LENS },
+        { "Workshop Key", ItemType.WORKSHOP_KEY },
+        { "Vase Plan", ItemType.VASE_PLAN }
+    };
+    private static readonly HashSet<string> filler_traps = new() { "Bonk", "Gibberish" };
     
     private void Awake() {
         Logger = base.Logger;
@@ -97,30 +105,64 @@ public class Plugin : BaseUnityPlugin {
 
     // Returns true when handled, false to retry next frame
     private bool GrantItem(ItemInfo item) {
+        var game = GameController.GetInstance();
         var parts = item.ItemName.Split(' ');
         
         // Handle runes
-        if (parts.Length == 3) {
-            if (parts[1] == "Rune") {
-                if (!languageTypes.TryGetValue(parts[0], out var lang) || 
-                    !int.TryParse(parts[2], out var runeNum)) {
-                    Logger.LogWarning($"Unrecognised rune item: {item.ItemName}");
-                    return true;
-                }
+        if (parts.Length == 3 && parts[1] == "Rune") {
+            if (!languageTypes.TryGetValue(parts[0], out var lang) || 
+                !int.TryParse(parts[2], out var runeNum)) {
+                Logger.LogWarning($"Unknown item name: {item.ItemName}");
+                return true;
+            }
 
-                try {
-                    GameController.GetInstance().GetLanguageController().GetLanguageData(lang)
-                        .AddRuneIfUnknown(runeNum - 1);
-                    return true;
-                }
-                catch (Exception e) {
-                    Logger.LogWarning($"Couldn't grant {item.ItemName} yet: {e.Message}");
-                    return false;
-                }
+            try {
+                game.GetLanguageController().GetLanguageData(lang).AddRuneIfUnknown(runeNum - 1);
+                return true;
+            }
+            catch (Exception e) {
+                Logger.LogWarning($"Couldn't grant {item.ItemName} yet: {e.Message}");
+                return false;
             }
         }
-
-        // All other items
+        
+        // Handle filler / traps
+        if (filler_traps.Contains(item.ItemName))
+            return true;
+        
+        // Handle key items
+        if (itemTypes.TryGetValue(item.ItemName, out var itemType)) {
+            var gameItem = game.GetUIController().inventoryUI.GetItem(itemType);
+            if (gameItem == null || game.GetPlaceController().GetGameSave() == null)
+                return false;
+            if (gameItem.IsOwned())
+                return true;
+            foreach (var condition in gameItem.conditions) {
+                if (condition.IsValid())
+                    continue;
+            
+                if (SatisfyingState(condition.op, condition.state, out int state))
+                    condition.interactive.ForceState(state);
+                if (gameItem.sumConditions && gameItem.IsOwned())
+                    break;
+            }
+            return gameItem.IsOwned();
+        }
+        
+        // Anything outside the above
+        Logger.LogWarning($"Unknown item name: {item.ItemName}");
         return true;
+    }
+
+    // Given an operation op and a reference value val,
+    // sets state such that OperationResult(op, state, val) returns true
+    static bool SatisfyingState(OP op, int val, out int state) {
+        switch (op) {
+            case OP.SUPERIOR: state = val + 1; break;
+            case OP.INFERIOR: state = val - 1; break;
+            case OP.NOT_EQUAL: state = val == 0 ? 1 : 0; break;
+            default: state = val; break;  // EQUAL, SUPERIOR_EQUAL, INFERIOR_EQUAL
+        }
+        return state >= 0; // ensure state is non-negative (invalid state)
     }
 }
