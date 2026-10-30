@@ -226,7 +226,7 @@ public class ArchipelagoClient {
     
     private static void CheckGoal() {
         // TODO: Add conditionals for other goals
-        if (JournalPagesChecked() > _journalHuntPageCount)
+        if (JournalPagesChecked() >= _journalHuntPageCount)
             SendGoalPacket();
     }
 
