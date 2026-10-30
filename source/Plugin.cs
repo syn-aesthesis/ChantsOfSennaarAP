@@ -99,8 +99,15 @@ public class Plugin : BaseUnityPlugin {
         // this is a good place to create and add a bunch of debug buttons
     }
 
-    void Update() {
-        ArchipelagoClient.ApplyPendingItems(GrantItem);
+    private void Update() {
+        // Apply pending items and refresh inventory if any are granted
+        if (ArchipelagoClient.ApplyPendingItems(GrantItem)) {
+            GameController.GetInstance().GetUIController().inventoryUI.RefreshItems(
+                transition: true,
+                allowOpenInventory: false,
+                GameController.GetInstance().GetPlaceController().GetCurrentPlace()
+            );
+        }
     }
 
     // Returns true when handled, false to retry next frame
