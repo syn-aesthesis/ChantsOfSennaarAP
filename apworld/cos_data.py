@@ -51,7 +51,7 @@ ANCHORITE_RUNES = []
 RUNE_REGIONS = DEVOTEE_RUNES + WARRIOR_RUNES + BARD_RUNES + ALCHEMIST_RUNES + \
     ANCHORITE_RUNES
 
-DEVOTEE_PAGES = [f"Devotee Journal Page {(p+1):02d}" for p in range(11)]
+DEVOTEE_PAGES = [f"Devotee Journal Page {(p+1):02d}" for p in range(10)]
 WARRIOR_PAGES = []
 BARD_PAGES = []
 ALCHEMIST_PAGES = []
@@ -201,5 +201,16 @@ DEVOTEE_PAGE_RUNES = [
     [2, 7, 28],
     [17, 19, 20, 32],
     [29, 30, 33],
-    []
+]
+DEVOTEE_PAGE_SCENES = [
+    ["A04"],
+    ["A06"],
+    [],
+    ["A07", "A08", "A10", "A11"],
+    ["A19"],
+    ["A15", "A16", "A27"],
+    ["A10", "A22", "A23", "A27"],
+    ["A22"],
+    ["A21", "A23", "A24", "A30"],
+    ["A16", "A21"],
 ]

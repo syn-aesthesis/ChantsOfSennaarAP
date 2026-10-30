@@ -1,6 +1,8 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
-from rule_builder.rules import Has, HasAll, CanReachLocation, AtLeast, Rule
+from rule_builder.rules import (
+    Has, HasAll, CanReachLocation, CanReachRegion, AtLeast, And
+)
 if TYPE_CHECKING:
     from .world import ChantsOfSennaarWorld
 
@@ -16,12 +18,6 @@ def set_all_rules(world: ChantsOfSennaarWorld) -> None:
 def set_all_entrance_rules(world: ChantsOfSennaarWorld) -> None:
     # set scene access conditions
 
-    # Devotee Journal Page 01 gate causes restrictive starts, fill errors
-    # world.set_rule(  # A04 -> A05
-    #     world.get_entrance("Crypt Valves to Crypt Sewer Viaduct"), 
-    #     HasAll("Devotee Rune 10", "Devotee Rune 11", "Devotee Rune 19")
-    # )
-    
     world.set_rule(  # A13 -> A22
         world.get_entrance("Abbey Forecourt to Abbey Church"),
         Has("Lens")  # TODO: separate church runes into two regions
@@ -40,13 +36,19 @@ def set_all_entrance_rules(world: ChantsOfSennaarWorld) -> None:
     )
 
     # set journal page conditions
+    origin = world.origin_region_name
     for p in range(len(DEVOTEE_PAGES)):
         page_name = DEVOTEE_PAGES[p]
         page_runes = [f"Devotee Rune {r+1:02d}" for r in DEVOTEE_PAGE_RUNES[p]]
-        origin = world.origin_region_name
+        page_scenes = [
+            f"{ABBEY_IDS_TO_SCENES[s]}" for s in DEVOTEE_PAGE_SCENES[p]
+        ]
         world.set_rule(
             world.get_entrance(f"{origin} to {page_name}"), 
-            HasAll(*page_runes)
+            And(
+                HasAll(*page_runes),
+                *[CanReachRegion(scene) for scene in page_scenes],
+            )
         )
 
 
