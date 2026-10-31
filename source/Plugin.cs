@@ -31,13 +31,14 @@ public class Plugin : BaseUnityPlugin {
         { "Alchemist", LanguageType.ALCHIMISTES },
         { "Anchorite", LanguageType.RECLUS },
     };
-    private static readonly Dictionary<string, ItemType> itemTypes = new() {
+    private static readonly HashSet<string> filler_traps = new() { "Bonk", "Gibberish" };
+    internal static readonly Dictionary<string, ItemType> ItemTypes = new() {
         { "Cellar Key", ItemType.CELLAR_KEY },
         { "Lens", ItemType.LENS },
         { "Workshop Key", ItemType.WORKSHOP_KEY },
         { "Vase Plan", ItemType.VASE_PLAN }
     };
-    private static readonly HashSet<string> filler_traps = new() { "Bonk", "Gibberish" };
+    internal static readonly HashSet<ItemType> ReceivedItems = new();
     
     private void Awake() {
         Logger = base.Logger;
@@ -138,7 +139,8 @@ public class Plugin : BaseUnityPlugin {
             return true;
         
         // Handle key items
-        if (itemTypes.TryGetValue(item.ItemName, out var itemType)) {
+        if (ItemTypes.TryGetValue(item.ItemName, out var itemType)) {
+            ReceivedItems.Add(itemType);
             var gameItem = game.GetUIController().inventoryUI.GetItem(itemType);
             if (gameItem == null || game.GetPlaceController().GetGameSave() == null)
                 return false;
