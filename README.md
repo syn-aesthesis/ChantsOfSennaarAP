@@ -3,16 +3,17 @@
 An [Archipelago Multiworld](https://github.com/ArchipelagoMW/Archipelago) implementation for Chants of Sennaar
 
 - **Status:** Playable alpha, unstable
-- **Latest release:** 0.2.0 (Floor 1 implementation)
+- **Latest release:** 0.2.1 (improved Floor 1 implementation)
 
 
 ## Mod installation guide (Windows)
 
-1. Download the ZIP for [BepInEx 5.4 (win-x64)](https://github.com/BepInEx/BepInEx/releases)
-2. Extract the contents of this ZIP into your Chants of Sennaar directory
-3. Download the ZIP containing the latest release of this mod
-4. Extract the ChantsOfSennaarAP folder into the `bepinex/plugins` folder inside your Chants of Sennaar directory
-5. Launch Chants of Sennaar
+1. Download the ZIP for [BepInEx 5.4 (win-x64)](https://github.com/BepInEx/BepInEx/releases).
+2. Extract the contents of this ZIP into your Chants of Sennaar game directory.
+3. Launch and then close the game. This should initialise BepInEx and create a `BepInEx/plugins` folder in your game directory.
+4. Download the ZIP containing the latest release of this mod.
+5. Extract the ChantsOfSennaarAP folder into the `BepInEx/plugins` folder inside your game directory.
+6. Launch the game. The AP mod menu should now appear on start-up.
 
 
 ## About this AP implementation
