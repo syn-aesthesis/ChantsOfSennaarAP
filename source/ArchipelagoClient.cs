@@ -24,6 +24,7 @@ public class ArchipelagoClient {
     private static ArchipelagoSession _session;
     
     public static ArchipelagoSave SaveData;
+    private static int _itemsReceived;
     private static int _itemsApplied;
 
     public static readonly HashSet<string> ChecksSentThisSession = new();
@@ -98,7 +99,7 @@ public class ArchipelagoClient {
                 ChecksPending.Enqueue(name);
             SaveData.Save();
             
-            _itemsApplied = 0;
+            _itemsApplied = SaveData.ItemsApplied;
             Authenticated = true;
 
             _deathLinkHandler = new(_session.CreateDeathLinkService(), ServerData.Slot);
@@ -159,29 +160,44 @@ public class ArchipelagoClient {
     }
 
     public static bool ApplyPendingItems(Func<ItemInfo, bool> tryGrant) {
-        var session = _session;
-        if (!Authenticated || session == null)
+        if (!Authenticated || _session == null)
             return false;
 
-        var all = session.Items.AllItemsReceived.ToList();
+        var all = _session.Items.AllItemsReceived.ToList();
         int count = all.Count;
         bool granted = false;
-
+        
+        if (count < _itemsReceived) {
+            Plugin.ReceivedItems.Clear();
+            _itemsReceived = 0;
+        }
+        while (_itemsReceived < count) {
+            if (Plugin.ItemTypes.TryGetValue(all[_itemsReceived].ItemName, out var item))
+                Plugin.ReceivedItems.Add(item);
+            _itemsReceived++;
+        }
+        
         if (count < _itemsApplied)
             _itemsApplied = 0;
-        
         while (_itemsApplied < count) {
             if (!tryGrant(all[_itemsApplied]))
                 break;
             _itemsApplied++;
             granted = true;
         }
-
         return granted;
     }
+    
+    // Commit newly applied items to local save data
+    public static void SaveItemsApplied() {
+        if (SaveData == null || SaveData.ItemsApplied == _itemsApplied) return;
+        SaveData.ItemsApplied = _itemsApplied;
+        SaveData.Save();
+    }
 
-    public static void ResetItemsApplied() => _itemsApplied = 0;
-
+    // Reset items applied according to local save data; called on NewGame or Load
+    public static void ResetItemsApplied() => _itemsApplied = SaveData?.ItemsApplied ?? 0;
+    
     // Enqueue current check for sending; called from Harmony patches
     public static void SendCheck(string locationName) {
         if (!ChecksSentThisSession.Add(locationName))

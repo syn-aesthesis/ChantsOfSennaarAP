@@ -14,6 +14,7 @@ public class ArchipelagoSave {
 
     public List<string> CheckedLocationNames = new();
     public bool GoalReached;
+    public int ItemsApplied;
 
     private static readonly object Lock = new();
 
