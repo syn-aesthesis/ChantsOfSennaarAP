@@ -38,7 +38,7 @@ def set_all_entrance_rules(world: ChantsOfSennaarWorld) -> None:
     origin = world.origin_region_name
     for p in range(len(DEVOTEE_PAGES)):
         page_name = DEVOTEE_PAGES[p]
-        page_runes = [f"Devotee Rune {r+1:02d}" for r in DEVOTEE_PAGE_RUNES[p]]
+        page_runes = [DEVOTEE_RUNES[r] for r in DEVOTEE_PAGE_RUNES[p]]
         page_scenes = [
             f"{ABBEY_IDS_TO_SCENES[s]}" for s in DEVOTEE_PAGE_SCENES[p]
         ]
