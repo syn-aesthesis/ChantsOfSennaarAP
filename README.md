@@ -31,7 +31,7 @@ What count as "checks" in this game?
 
 What "items" can you receive?
 - Runes and key items are implemented as AP items that can be received from the multiworld.
-- Floor access "keys" are planned as optional items in a future update.
+- Terminal "keys" are planned as optional items in a future update.
 
 What else is randomized in this game?
 - Randomized start locations are planned in a future update.
@@ -41,9 +41,9 @@ What else is randomized in this game?
 ## AI usage disclosure
 
 - This implementation is not vibe-coded.
-- This implementation does not contain any AI-generated images, 3D models, or music.
-- I write source code in an IDE with light AI functionalities, which I use to complete lines, correct typos, and refactor variable names. I review any such modifications for correct syntax and functionality prior to committing any code.
-- I use LLM tools to better understand software engineering practices and specific functionalities of common frameworks and libraries that are unfamiliar to me. I cross-check this information against published documentation and credible source materials.
+- This implementation does not contain any AI-generated media assets.
+- I have used AI capabilities common to IDEs including inline code completion, proactive error detection, and semantic refactoring. I review all such modifications for intended functionality and syntax before committing any code.
+- I have used an AI platform as a tool for reviewing my first-draft code to flag security or style issues and suggest revisions. I review the line-by-line behavior of any such code suggestions, consult primary documentation for all unfamiliar syntax and components, and run independent tests before committing any revisions to source.
 - This mod depends on files and templates from the [BepInEx modding framework](https://github.com/BepInEx/BepInEx) and [Archipelago.MultiClient.Net library](https://github.com/ArchipelagoMW/Archipelago.MultiClient.Net). I cannot personally verify the extent to which these external projects may or may not have used AI in their development.
 
 
