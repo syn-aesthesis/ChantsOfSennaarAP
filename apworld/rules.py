@@ -17,10 +17,9 @@ def set_all_rules(world: ChantsOfSennaarWorld) -> None:
 
 def set_all_entrance_rules(world: ChantsOfSennaarWorld) -> None:
     # set scene access conditions
-
     world.set_rule(  # A13 -> A22
         world.get_entrance("Abbey Forecourt to Abbey Church"),
-        Has("Lens")  # TODO: separate church runes into two regions
+        Has("Lens")
     )
     world.set_rule(  # A23 -> A24
         world.get_entrance("Abbey Garden to Abbey Workshop"),
@@ -49,6 +48,44 @@ def set_all_entrance_rules(world: ChantsOfSennaarWorld) -> None:
                 HasAll(*page_runes),
                 *[CanReachRegion(scene) for scene in page_scenes],
             )
+        )
+
+    # set rune conditions
+    # A07 DEVOTS 3, 4, 14 -- need access to A08, A11 (child)
+    for r in [3, 4, 14]:    
+        world.set_rule(
+            world.get_entrance(f"{ABBEY_IDS_TO_SCENES["A07"]} to {DEVOTEE_RUNES[r]}"),
+            And(
+                CanReachRegion(f"{ABBEY_IDS_TO_SCENES["A08"]}"),
+                CanReachRegion(f"{ABBEY_IDS_TO_SCENES["A11"]}")
+            )
+        )
+    # A08 DEVOTS 14 -- need access to A11 (child)
+    world.set_rule(
+        world.get_entrance(f"{ABBEY_IDS_TO_SCENES["A08"]} to {DEVOTEE_RUNES[14]}"),
+        CanReachRegion(f"{ABBEY_IDS_TO_SCENES["A11"]}")
+    )
+    # A10 DEVOTS 1, 3, 4, 12, 14, 22, 31 -- need access to A07, A08, A11 (child)
+    for r in [1, 3, 4, 12, 14, 22, 31]:    
+        world.set_rule(
+            world.get_entrance(f"{ABBEY_IDS_TO_SCENES["A10"]} to {DEVOTEE_RUNES[r]}"),
+            And(
+                CanReachRegion(f"{ABBEY_IDS_TO_SCENES["A07"]}"),
+                CanReachRegion(f"{ABBEY_IDS_TO_SCENES["A08"]}"),
+                CanReachRegion(f"{ABBEY_IDS_TO_SCENES["A11"]}")
+            )
+        )
+    # A13 DEVOTS 7, 8, 12, 15, 21, 24 -- need Coin
+    for r in [7, 8, 12, 15, 21, 24]:    
+        world.set_rule(
+            world.get_entrance(f"{ABBEY_IDS_TO_SCENES["A13"]} to {DEVOTEE_RUNES[r]}"),
+            Has("Coin")
+        )
+    # A30 DEVOTS 14, 21 -- need Cellar Key
+    for r in [14, 21]:    
+        world.set_rule(
+            world.get_entrance(f"{ABBEY_IDS_TO_SCENES["A30"]} to {DEVOTEE_RUNES[r]}"),
+            Has("Cellar Key")
         )
 
 

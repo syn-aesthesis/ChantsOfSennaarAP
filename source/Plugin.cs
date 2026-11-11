@@ -34,9 +34,10 @@ public class Plugin : BaseUnityPlugin {
     private static readonly HashSet<string> filler_traps = new() { "Bonk", "Gibberish" };
     internal static readonly Dictionary<string, ItemType> ItemTypes = new() {
         { "Cellar Key", ItemType.CELLAR_KEY },
-        { "Lens", ItemType.LENS },
+        { "Coin", ItemType.COIN },
+        { "Vase Plan", ItemType.VASE_PLAN },
         { "Workshop Key", ItemType.WORKSHOP_KEY },
-        { "Vase Plan", ItemType.VASE_PLAN }
+        { "Lens", ItemType.LENS },
     };
     internal static readonly HashSet<ItemType> ReceivedItems = new();
     

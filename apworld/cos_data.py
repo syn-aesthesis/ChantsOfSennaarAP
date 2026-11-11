@@ -138,7 +138,7 @@ LANG_ID_VAL = {
     "Anchorite": 500,
 }
 
-PROG_KEY_ITEMS = ["Cellar Key", "Lens", "Workshop Key"]
+PROG_KEY_ITEMS = ["Cellar Key", "Coin", "Workshop Key", "Lens"]
 USEFUL_KEY_ITEMS = []
 FILLER_KEY_ITEMS = ["Vase Plan"]
 
