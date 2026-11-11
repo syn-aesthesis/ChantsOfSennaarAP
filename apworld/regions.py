@@ -26,17 +26,17 @@ def connect_regions(world: ChantsOfSennaarWorld) -> None:
         regions[region_name] = world.get_region(region_name)
 
     # define Entrance connections between scene regions
-    for src_id, dst_ids in ABBEY_SCENE_ENTRANCES.items():
-        src_scene = ABBEY_IDS_TO_SCENES[src_id]
+    for src_id, dst_ids in SCENE_ENTRANCES.items():
+        src_scene = IDS_TO_SCENES[src_id]
         
         for dst_id in dst_ids:
-            dst_scene = ABBEY_IDS_TO_SCENES[dst_id]
+            dst_scene = IDS_TO_SCENES[dst_id]
             regions[src_scene].connect(regions[dst_scene], 
                                        f"{src_scene} to {dst_scene}")
 
     # define Entrance connections to rune regions
-    for src_id, lang_runes in ABBEY_RUNE_ENTRANCES.items():
-        src_scene = ABBEY_IDS_TO_SCENES[src_id]
+    for src_id, lang_runes in RUNE_ENTRANCES.items():
+        src_scene = IDS_TO_SCENES[src_id]
 
         for lang, rune_ids in lang_runes:
             for r in rune_ids:

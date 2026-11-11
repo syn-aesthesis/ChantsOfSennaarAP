@@ -40,7 +40,7 @@ def set_all_entrance_rules(world: ChantsOfSennaarWorld) -> None:
         page_name = DEVOTEE_PAGES[p]
         page_runes = [DEVOTEE_RUNES[r] for r in DEVOTEE_PAGE_RUNES[p]]
         page_scenes = [
-            f"{ABBEY_IDS_TO_SCENES[s]}" for s in DEVOTEE_PAGE_SCENES[p]
+            f"{IDS_TO_SCENES[s]}" for s in DEVOTEE_PAGE_SCENES[p]
         ]
         world.set_rule(
             world.get_entrance(f"{origin} to {page_name}"), 
@@ -54,37 +54,37 @@ def set_all_entrance_rules(world: ChantsOfSennaarWorld) -> None:
     # A07 DEVOTS 3, 4, 14 -- need access to A08, A11 (child)
     for r in [3, 4, 14]:    
         world.set_rule(
-            world.get_entrance(f"{ABBEY_IDS_TO_SCENES["A07"]} to {DEVOTEE_RUNES[r]}"),
+            world.get_entrance(f"{IDS_TO_SCENES["A07"]} to {DEVOTEE_RUNES[r]}"),
             And(
-                CanReachRegion(f"{ABBEY_IDS_TO_SCENES["A08"]}"),
-                CanReachRegion(f"{ABBEY_IDS_TO_SCENES["A11"]}")
+                CanReachRegion(f"{IDS_TO_SCENES["A08"]}"),
+                CanReachRegion(f"{IDS_TO_SCENES["A11"]}")
             )
         )
     # A08 DEVOTS 14 -- need access to A11 (child)
     world.set_rule(
-        world.get_entrance(f"{ABBEY_IDS_TO_SCENES["A08"]} to {DEVOTEE_RUNES[14]}"),
-        CanReachRegion(f"{ABBEY_IDS_TO_SCENES["A11"]}")
+        world.get_entrance(f"{IDS_TO_SCENES["A08"]} to {DEVOTEE_RUNES[14]}"),
+        CanReachRegion(f"{IDS_TO_SCENES["A11"]}")
     )
     # A10 DEVOTS 1, 3, 4, 12, 14, 22, 31 -- need access to A07, A08, A11 (child)
     for r in [1, 3, 4, 12, 14, 22, 31]:    
         world.set_rule(
-            world.get_entrance(f"{ABBEY_IDS_TO_SCENES["A10"]} to {DEVOTEE_RUNES[r]}"),
+            world.get_entrance(f"{IDS_TO_SCENES["A10"]} to {DEVOTEE_RUNES[r]}"),
             And(
-                CanReachRegion(f"{ABBEY_IDS_TO_SCENES["A07"]}"),
-                CanReachRegion(f"{ABBEY_IDS_TO_SCENES["A08"]}"),
-                CanReachRegion(f"{ABBEY_IDS_TO_SCENES["A11"]}")
+                CanReachRegion(f"{IDS_TO_SCENES["A07"]}"),
+                CanReachRegion(f"{IDS_TO_SCENES["A08"]}"),
+                CanReachRegion(f"{IDS_TO_SCENES["A11"]}")
             )
         )
     # A13 DEVOTS 7, 8, 12, 15, 21, 24 -- need Coin
     for r in [7, 8, 12, 15, 21, 24]:    
         world.set_rule(
-            world.get_entrance(f"{ABBEY_IDS_TO_SCENES["A13"]} to {DEVOTEE_RUNES[r]}"),
+            world.get_entrance(f"{IDS_TO_SCENES["A13"]} to {DEVOTEE_RUNES[r]}"),
             Has("Coin")
         )
     # A30 DEVOTS 14, 21 -- need Cellar Key
     for r in [14, 21]:    
         world.set_rule(
-            world.get_entrance(f"{ABBEY_IDS_TO_SCENES["A30"]} to {DEVOTEE_RUNES[r]}"),
+            world.get_entrance(f"{IDS_TO_SCENES["A30"]} to {DEVOTEE_RUNES[r]}"),
             Has("Cellar Key")
         )
 
