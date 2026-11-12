@@ -43,8 +43,8 @@ What else is randomized in this game?
 - This implementation is not vibe-coded.
 - This implementation does not contain any AI-generated media assets.
 - I have used AI capabilities common to IDEs including inline code completion, proactive error detection, and semantic refactoring. I review all such modifications for intended functionality and syntax before committing any code.
-- I have used an AI platform as a tool for reviewing my first-draft code to flag security or style issues and suggest revisions. I review the line-by-line behavior of any such code suggestions, consult primary documentation for all unfamiliar syntax and components, and run independent tests before committing any revisions to source.
-- This mod depends on files and templates from the [BepInEx modding framework](https://github.com/BepInEx/BepInEx) and [Archipelago.MultiClient.Net library](https://github.com/ArchipelagoMW/Archipelago.MultiClient.Net). I cannot personally verify the extent to which these external projects may or may not have used AI in their development.
+- I have used an AI platform to supplement my understanding of relevant libraries and frameworks, to assist with high-level code review, and to generate helper scripts for automated data gathering based on manually deciphered structures in the base game assets. Any resulting code blocks and data outputs are treated as external references and are never directly reused or integrated in the codebase.
+- This mod makes use of files and templates from the [BepInEx modding framework](https://github.com/BepInEx/BepInEx) and [Archipelago.MultiClient.Net library](https://github.com/ArchipelagoMW/Archipelago.MultiClient.Net), including partial reproduction and redistribution of the latter. I cannot personally verify the extent to which these external projects may or may not have used AI in their development.
 
 
 
