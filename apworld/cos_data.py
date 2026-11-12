@@ -36,7 +36,40 @@ ABBEY_SCENES = [
     "Abbey Cellar",
     "Abbey Purple Door",
 ]
-FORTRESS_SCENES = []
+FORTRESS_SCENES = [
+    "Fortress Corridor",
+    "Fortress Triage",
+    "Fortress Central South",
+    "Frontier 1",
+    "Frontier 2",
+    "Frontier 3",
+    "Frontier Precinct",
+    "Terminal 3",
+    "Frontier Cliff",
+    "Fortress Grand Hall",
+    "Fortress Grand Hall Stairway",
+    "Fortress Garrison",
+    "Fortress Warehouse",
+    "Fortress Reserve",
+    "Fortress Barracks",
+    "Fortress Central North",
+    "Fortress Armory",
+    "Fortress Pit",
+    "Fortress Antechamber",
+    "Fortress Axle",
+    "Fortress Treasury",
+    "Terminal 4",
+    "Fortress Concourse",
+    "Fortress Bridge",
+    "Fortress Observatory",
+    "Fortress Telescope",
+    "Fortress Bells",
+    "Fortress Lodging",
+    "Fortress Chosen Hall",
+    "Fortress Platform",
+    "Fortress Barracks West",
+    "Fortress Purple Door",
+]
 GARDENS_SCENES = []
 FACTORY_SCENES = []
 EXILE_SCENES = []
@@ -44,7 +77,7 @@ SCENE_REGIONS = ABBEY_SCENES + FORTRESS_SCENES + GARDENS_SCENES + \
     FACTORY_SCENES + EXILE_SCENES
 
 DEVOTEE_RUNES = [f"Devotee Rune {(r+1):02d}" for r in range(34)]
-WARRIOR_RUNES = [f"Warrior Rune {(r+1):02d}" for r in [1, 14, 18, 20]]
+WARRIOR_RUNES = [f"Warrior Rune {(r+1):02d}" for r in range(36)]
 BARD_RUNES = []
 ALCHEMIST_RUNES = []
 ANCHORITE_RUNES = []
@@ -52,7 +85,7 @@ RUNE_REGIONS = DEVOTEE_RUNES + WARRIOR_RUNES + BARD_RUNES + ALCHEMIST_RUNES + \
     ANCHORITE_RUNES
 
 DEVOTEE_PAGES = [f"Devotee Journal Page {(p+1):02d}" for p in range(10)]
-WARRIOR_PAGES = []
+WARRIOR_PAGES = [f"Warrior Journal Page {(p+1):02d}" for p in range(10)]
 BARD_PAGES = []
 ALCHEMIST_PAGES = []
 ANCHORITE_PAGES = []
