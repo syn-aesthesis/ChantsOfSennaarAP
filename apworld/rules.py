@@ -55,6 +55,7 @@ def set_all_entrance_rules(world: ChantsOfSennaarWorld) -> None:
     )
     # B09 Cliff -> B10 Grand Hall: requires B08 Terminal 3
 
+
     # set journal page conditions
     origin = world.origin_region_name
     for p in range(len(DEVOTEE_PAGES)):
@@ -83,6 +84,7 @@ def set_all_entrance_rules(world: ChantsOfSennaarWorld) -> None:
                 *[CanReachRegion(scene) for scene in page_scenes],
             )
         )
+
 
     # set rune conditions
     # A07 DEVOTS 3, 4, 14 -- need access to A08a, A11 (child)
@@ -138,6 +140,20 @@ def set_all_entrance_rules(world: ChantsOfSennaarWorld) -> None:
                 CanReachRegion(f"{IDS_TO_SCENES["A12"]}")
             )
         )
+
+
+    # set terminal conditions
+    for i, src_terminal in enumerate(TERMINALS):
+        for j, dst_terminal in enumerate(TERMINALS):
+            if i == j:
+                continue
+            world.set_rule(
+                world.get_entrance(f"{src_terminal} to {dst_terminal}"),
+                And(
+                    Has(f"{src_terminal}"),
+                    Has(f"{dst_terminal}")
+                )
+            )
 
 
 def set_all_location_rules(world: ChantsOfSennaarWorld) -> None:

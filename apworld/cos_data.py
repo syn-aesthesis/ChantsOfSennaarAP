@@ -274,6 +274,13 @@ RUNE_ENTRANCES = ABBEY_RUNE_ENTRANCES | FORTRESS_RUNE_ENTRANCES | \
     GARDENS_RUNE_ENTRANCES | FACTORY_RUNE_ENTRANCES | EXILE_RUNE_ENTRANCES
 
 
+TERMINALS = [
+    "Terminal 1",
+    "Terminal 2",
+    "Terminal 3",
+    "Terminal 4"
+]
+
 # ----- locations.py, items.py -----
 
 LOCATION_NAME_TO_ID = {}
@@ -292,7 +299,7 @@ PROG_KEY_ITEMS = ["Cellar Key", "Lens", "Workshop Key", "Coin", "Filter", "Bottl
 USEFUL_KEY_ITEMS = []
 FILLER_KEY_ITEMS = ["Vase Plan"]
 
-PROG_ITEMS = RUNE_REGIONS + PROG_KEY_ITEMS
+PROG_ITEMS = RUNE_REGIONS + PROG_KEY_ITEMS + TERMINALS
 
 TRAP_ITEMS = ["Bonk"]
 FILLER_ITEMS = ["Gibberish"]
@@ -345,6 +352,11 @@ for f in range(len(FILLER_ITEMS)):
     filler = FILLER_ITEMS[f]
     ITEM_NAME_TO_ID[filler] = 2500 + f
     DEFAULT_ITEM_CLASSIFICATIONS[filler] = ItemClassification.filler
+
+for t in range(len(TERMINALS)):
+    terminal = TERMINALS[t]
+    ITEM_NAME_TO_ID[terminal] = 2600 + t
+    DEFAULT_ITEM_CLASSIFICATIONS[terminal] = ItemClassification.progression
 
 
 # ----- rules.py -----

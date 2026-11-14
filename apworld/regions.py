@@ -49,3 +49,11 @@ def connect_regions(world: ChantsOfSennaarWorld) -> None:
         origin = world.origin_region_name
         regions[origin].connect(regions[page_name], 
                                 f"{world.origin_region_name} to {page_name}")
+
+    # define Entrance connections between terminal regions
+    for i, src_terminal in enumerate(TERMINALS):
+        for j, dst_terminal in enumerate(TERMINALS):
+            if i == j:
+                continue
+            regions[src_terminal].connect(regions[dst_terminal],
+                                          f"{src_terminal} to {dst_terminal}")
