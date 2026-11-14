@@ -38,6 +38,8 @@ public class Plugin : BaseUnityPlugin {
         { "Vase Plan", ItemType.VASE_PLAN },
         { "Workshop Key", ItemType.WORKSHOP_KEY },
         { "Lens", ItemType.LENS },
+        { "Filter", ItemType.FILTER },
+        { "Bottle", ItemType.BOTTLE },
     };
     internal static readonly HashSet<ItemType> ReceivedItems = new();
     

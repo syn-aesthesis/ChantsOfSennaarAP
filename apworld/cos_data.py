@@ -11,7 +11,8 @@ ABBEY_SCENES = [
     "Crypt Sewer Viaduct",
     "Crypt Sluices",
     "Abbey Gallery",
-    "Abbey Great Door",
+    "Abbey Great Door 1",
+    "Abbey Great Door 2",
     "Abbey Card Game",
     "Abbey Esplanade",
     "Abbey Terrace",
@@ -84,8 +85,31 @@ ANCHORITE_RUNES = []
 RUNE_REGIONS = DEVOTEE_RUNES + WARRIOR_RUNES + BARD_RUNES + ALCHEMIST_RUNES + \
     ANCHORITE_RUNES
 
-DEVOTEE_PAGES = [f"Devotee Journal Page {(p+1):02d}" for p in range(10)]
-WARRIOR_PAGES = [f"Warrior Journal Page {(p+1):02d}" for p in range(10)]
+DEVOTEE_PAGES = [
+    "Devotee Journal Page: Valves",
+    "Devotee Journal Page: Sluices",
+    "Devotee Journal Page: Reliefs",
+    "Devotee Journal Page: Hide-and-Seek",
+    "Devotee Journal Page: Infiltration",
+    "Devotee Journal Page: Statues",
+    "Devotee Journal Page: Places",
+    "Devotee Journal Page: Preacher",
+    "Devotee Journal Page: Workshop",
+    "Devotee Journal Page: Shops"
+]
+WARRIOR_PAGES = [
+    "Warrior Journal Page: Shield",
+    "Warrior Journal Page: Patrol",
+    "Warrior Journal Page: Statues",
+    "Warrior Journal Page: Cart",
+    "Warrior Journal Page: Reserve",
+    "Warrior Journal Page: Barracks",
+    "Warrior Journal Page: Constellations",
+    "Warrior Journal Page: Treasury",
+    "Warrior Journal Page: Grimoire",
+    "Warrior Journal Page: Music",
+    "Warrior Journal Page: Specialist"
+]
 BARD_PAGES = []
 ALCHEMIST_PAGES = []
 ANCHORITE_PAGES = []
@@ -95,7 +119,8 @@ PAGE_REGIONS = DEVOTEE_PAGES + WARRIOR_PAGES + BARD_PAGES + ALCHEMIST_PAGES + \
 ALL_REGIONS = SCENE_REGIONS + RUNE_REGIONS + PAGE_REGIONS
 
 
-ABBEY_SCENE_IDS = [f"A{(i+1):02d}" for i in range(len(ABBEY_SCENES))]
+ABBEY_SCENE_IDS = [f"A{(i+1):02d}" for i in range(7)] + ["A08a", "A08b"] + \
+    [f"A{(i+1):02d}" for i in range(8, len(ABBEY_SCENES))]
 FORTRESS_SCENE_IDS = [f"B{(i+1):02d}" for i in range(len(FORTRESS_SCENES))]
 GARDENS_SCENE_IDS = [f"C{(i+1):02d}" for i in range(len(GARDENS_SCENES))]
 FACTORY_SCENE_IDS = [f"D{(i+1):02d}" for i in range(len(FACTORY_SCENES))]
@@ -122,17 +147,18 @@ ABBEY_SCENE_ENTRANCES = {
     "A04": ["A03", "A05"],
     "A05": ["A04", "A06"],
     "A06": ["A05", "A07"],
-    "A07": ["A06", "A08"],
-    "A08": ["A07", "A09", "A10", "A17"],
-    "A09": ["A08"],
-    "A10": ["A08", "A11", "A12"],
+    "A07": ["A06", "A08a"],
+    "A08a": ["A07", "A08b", "A09", "A10", "A17"],
+    "A08b": ["A08a", "A28", "B04"],
+    "A09": ["A08a"],
+    "A10": ["A08a", "A11", "A12"],
     "A11": ["A10"],
     "A12": ["A10", "A30"],
     "A13": ["A16", "A20", "A22"],
     "A14": ["A13"],
     "A15": ["A18", "A19", "A21", "A23"],
     "A16": ["A13", "A23", "A31"],
-    "A17": ["A08"],
+    "A17": ["A08a"],
     "A18": ["A15", "A21"],
     "A19": ["A15", "A20", "A30"],
     "A20": ["A13", "A19", "A23", "A25"],
@@ -143,12 +169,45 @@ ABBEY_SCENE_ENTRANCES = {
     "A25": ["A20", "A26", "A27"],
     "A26": ["A25"],
     "A27": ["A25", "A28"],
-    "A28": ["A27", "A29"],  # B04
+    "A28": ["A08b", "A27", "A29"],
     "A29": ["A28"],
     "A30": ["A12", "A19"],
     "A31": ["A16"],  # E21
 }
-FORTRESS_SCENE_ENTRANCES = {}
+FORTRESS_SCENE_ENTRANCES = {
+    "B01": ["B12", "B13"],
+    "B02": ["B03", "B18"],
+    "B03": ["B02", "B16", "B21", "B25"],
+    "B04": ["A08b", "B05"],
+    "B05": ["B04", "B06"],
+    "B06": ["B05", "B07"],
+    "B07": ["B06", "B08"],  # B10, B33?
+    "B08": ["B07", "B09"],
+    "B09": ["B08", "B10"],
+    "B10": ["B09", "B11", "B12", "B32"],  # B07
+    "B11": ["B10"],
+    "B12": ["B01", "B10", "B17"],
+    "B13": ["B01", "B14"],
+    "B14": ["B13", "B14", "B15"],
+    "B15": ["B14", "B17", "B31"],
+    "B16": ["B03", "B14", "B23", "B31"],
+    "B17": ["B12", "B15"],
+    "B18": ["B02", "B19"],
+    "B19": ["B18", "B20", "B21"],
+    "B20": ["B19", "B22"],
+    "B21": ["B03", "B19"],
+    "B22": ["B20"],
+    "B23": ["B16", "B24"],
+    "B24": ["B23", "B27", "B29"],
+    "B25": ["B03", "B26"],
+    "B26": ["B25"],
+    "B27": ["B24", "B28"],
+    "B28": ["B27"],
+    "B29": ["B24", "B30"],
+    "B30": ["B09"],  # C01
+    "B31": ["B15", "B16"],
+    "B32": ["B10"],  # E22
+}
 GARDENS_SCENE_ENTRANCES = {}
 FACTORY_SCENE_ENTRANCES = {}
 EXILE_SCENE_ENTRANCES = {}
@@ -162,7 +221,7 @@ ABBEY_RUNE_ENTRANCES = {
     "A04": [("Devotee", [9, 10])],
     "A06": [("Devotee", [3, 4, 9, 10, 12, 16, 18, 22])],
     "A07": [("Devotee", [0, 2, 3, 4, 5, 6, 10, 11, 14, 15, 18, 21, 22, 27, 28])],
-    "A08": [("Devotee", [0, 1, 3, 4, 5, 6, 10, 11, 12, 14, 15, 16, 18, 21]), 
+    "A08a": [("Devotee", [0, 1, 3, 4, 5, 6, 10, 11, 12, 14, 15, 16, 18, 21]), 
             ("Warrior", [1, 14, 18, 20])],
     "A09": [("Devotee", [0, 5, 6, 27])],
     "A10": [("Devotee", [1, 3, 4, 12, 14, 22, 26, 31])],
@@ -182,7 +241,31 @@ ABBEY_RUNE_ENTRANCES = {
     "A27": [("Devotee", [0, 3, 4, 13, 15, 16, 23, 25])],
     "A30": [("Devotee", [1, 3, 4, 5, 10, 12, 14, 15, 17, 18, 21, 31])],
 }
-FORTRESS_RUNE_ENTRANCES = {}
+FORTRESS_RUNE_ENTRANCES = {
+    "B01": [("Warrior", [1, 4, 13, 20])],
+    "B02": [("Warrior", [1, 3, 5, 7, 8, 9, 12, 13, 19, 20, 21, 22, 23, 29])],
+    "B03": [("Warrior", [2, 4, 5, 10, 13, 14, 17, 20, 28, 29])],
+    "B07": [("Warrior", [1, 4, 9, 11, 13, 20])],
+    "B08": [("Devotee", [1, 2, 6, 8]),
+            ("Warrior", [0, 13, 17, 18, 20])],
+    "B10": [("Warrior", [1, 4, 9, 10, 13, 14, 20, 21, 23, 24])],
+    "B12": [("Warrior", [3, 20])],
+    "B13": [("Warrior", [1, 4, 7, 8, 12, 13, 19, 20, 21, 22, 23])],
+    "B14": [("Warrior", [5, 7, 20])],
+    "B15": [("Warrior", [3, 9, 20])],
+    "B16": [("Warrior", [2, 3, 4, 5, 10, 13, 14, 17, 20, 29])],
+    "B18": [("Warrior", [2, 9, 10, 11, 13, 14, 20, 30])],
+    "B19": [("Warrior", [29])],
+    "B21": [("Devotee", [15, 16]),
+            ("Warrior", [33, 34, 35])],
+    "B24": [("Warrior", [10, 20])],
+    "B26": [("Warrior", [16, 27, 29])],
+    "B27": [("Warrior", [0, 5, 28])],
+    "B28": [("Warrior", [2, 6, 9, 10, 15, 16, 20, 25, 26, 27])],
+    "B29": [("Warrior", [2, 3, 4, 10, 13, 15, 17, 18, 20, 21, 32])],
+    "B30": [("Warrior", [15, 30, 31])],
+    "B31": [("Warrior", [3, 9, 10, 13, 14, 20, 21, 23, 24])],
+}
 GARDENS_RUNE_ENTRANCES = {}
 FACTORY_RUNE_ENTRANCES = {}
 EXILE_RUNE_ENTRANCES = {}
@@ -205,7 +288,7 @@ LANG_ID_VAL = {
     "Anchorite": 500,
 }
 
-PROG_KEY_ITEMS = ["Cellar Key", "Coin", "Workshop Key", "Lens"]
+PROG_KEY_ITEMS = ["Cellar Key", "Lens", "Workshop Key", "Coin", "Filter", "Bottle"]
 USEFUL_KEY_ITEMS = []
 FILLER_KEY_ITEMS = ["Vase Plan"]
 
@@ -223,7 +306,17 @@ for rune in RUNE_REGIONS:
 
 for page in PAGE_REGIONS:
     page_lang = page.split(' ')[0]
-    page_num = int(page.split(' ')[-1])
+    match page_lang:
+        case "Devotee":
+            page_num = DEVOTEE_PAGES.index(page)
+        case "Warrior":
+            page_num = WARRIOR_PAGES.index(page)
+        case "Bard":
+            page_num = BARD_PAGES.index(page)
+        case "Alchemist":
+            page_num = ALCHEMIST_PAGES.index(page)
+        case "Anchorite":
+            page_num = ANCHORITE_PAGES.index(page)
     LOCATION_NAME_TO_ID[f"Complete {page}"] = (
         500 + LANG_ID_VAL[page_lang] + page_num
     )
@@ -271,12 +364,39 @@ DEVOTEE_PAGE_RUNES = [
 DEVOTEE_PAGE_SCENES = [
     ["A04"],
     ["A06"],
-    [],
-    ["A07", "A08", "A10", "A11"],
+    ["A07", "A08a"],  # OR, not AND
+    ["A07", "A08a", "A10", "A11"],
     ["A19"],
     ["A15", "A16", "A27"],
     ["A10", "A22", "A23", "A27"],
     ["A22"],
     ["A21", "A23", "A24", "A30"],
     ["A16", "A21"],
+]
+
+WARRIOR_PAGE_RUNES = [
+    [0, 13, 17, 18],
+    [1, 4, 20],
+    [10, 14, 24],
+    [21, 22, 23],
+    [5, 7, 12, 19],
+    [3, 8, 9],
+    [6, 15, 25, 26],
+    [2, 11, 29],
+    [16, 27, 28],
+    [30, 31, 32],
+    [33, 34, 35]
+]
+WARRIOR_PAGE_SCENES = [
+    ["B08"],
+    ["B10"],
+    ["B10"],  # check conditions for operating statue
+    ["B13"],
+    ["B14"],
+    ["B31"],
+    ["B19"],
+    ["B21"],
+    ["B26", "B28"],
+    ["B30"],
+    ["B21"]
 ]

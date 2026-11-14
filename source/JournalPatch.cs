@@ -6,12 +6,51 @@ namespace ChantsOfSennaarAP;
 [HarmonyPatch(typeof(Journal))]
 internal class JournalPatch
 {
-    private static readonly Dictionary<string, string> Languages = new Dictionary<string, string>() {
-        { "DEVOTS", "Devotee" },
-        { "GUERRIERS", "Warrior" },
-        { "BARDES", "Bard"},
-        { "ALCHIMISTES", "Alchemist"},
-        { "RECLUS", "Anchorite"},
+    private static readonly Dictionary<string, Dictionary<int, string>> Languages = new() {
+        { "DEVOTS", new Dictionary<int, string>()
+            {
+                {0, "Devotee Journal Page: Valves"},
+                {1, "Devotee Journal Page: Sluices"},
+                {2, "Devotee Journal Page: Reliefs"},
+                {3, "Devotee Journal Page: Hide-and-Seek"},
+                {4, "Devotee Journal Page: Infiltration"},
+                {5, "Devotee Journal Page: Statues"},
+                {6, "Devotee Journal Page: Places"},
+                {7, "Devotee Journal Page: Preacher"},
+                {8, "Devotee Journal Page: Workshop"},
+                {9, "Devotee Journal Page: Shops"},
+            } 
+        },
+        { "GUERRIERS", new Dictionary<int, string>()
+            {
+                {0, "Warrior Journal Page: Shield"},
+                {1, "Warrior Journal Page: Patrol"},
+                {2, "Warrior Journal Page: Statues"},
+                {3, "Warrior Journal Page: Cart"},
+                {4, "Warrior Journal Page: Reserve"},
+                {5, "Warrior Journal Page: Barracks"},
+                {6, "Warrior Journal Page: Constellations"},
+                {7, "Warrior Journal Page: Treasury"},
+                {8, "Warrior Journal Page: Grimoire"},
+                {9, "Warrior Journal Page: Music"},
+                {12, "Warrior Journal Page: Specialist"},
+            } 
+        },
+        { "BARDES", new Dictionary<int, string>()
+            {
+                
+            }  
+        },
+        { "ALCHIMISTES", new Dictionary<int, string>()
+            {
+                
+            }
+        },
+        { "RECLUS", new Dictionary<int, string>()
+            {
+                
+            }
+        },
     };
     
     [HarmonyPatch(nameof(Journal.ValidPage), new[] { typeof(JournalSlotUI[]) })]
@@ -35,6 +74,6 @@ internal class JournalPatch
         
         Plugin.Logger.LogInfo($"Completed page: {lang} {pageId}");
         
-        ArchipelagoClient.SendCheck($"Complete {Languages[lang.ToString()]} Journal Page {(pageId+1):00}");
+        ArchipelagoClient.SendCheck($"Complete {Languages[lang.ToString()][pageId]}");
     }
 }

@@ -17,8 +17,12 @@ def set_all_rules(world: ChantsOfSennaarWorld) -> None:
 
 def set_all_entrance_rules(world: ChantsOfSennaarWorld) -> None:
     # set scene access conditions
-    world.set_rule(  # A13 -> A22
-        world.get_entrance("Abbey Forecourt to Abbey Church"),
+    world.set_rule(  # A08b -> A28
+        world.get_entrance("Abbey Great Door 2 to Abbey Underground 1"),
+            Has("Lens"),
+    )
+    world.set_rule(  # A08b -> B04
+        world.get_entrance("Abbey Great Door 2 to Frontier 1"),
         Has("Lens")
     )
     world.set_rule(  # A23 -> A24
@@ -33,6 +37,23 @@ def set_all_entrance_rules(world: ChantsOfSennaarWorld) -> None:
         world.get_entrance("Abbey Cellar to Abbey Cloister"),
         Has("Cellar Key")
     )
+    world.set_rule(  # A28 -> A08b
+        world.get_entrance("Abbey Underground 1 to Abbey Great Door 2"),
+        Has("Lens")
+    )
+    world.set_rule(  # B04 -> A08b
+        world.get_entrance("Frontier 1 to Abbey Great Door 2"),
+        Has("Lens")
+    )
+    world.set_rule(  # B24 -> B29
+        world.get_entrance("Fortress Bridge to Fortress Chosen Hall"),
+        Has("Bottle")
+    )
+    world.set_rule(  # B27 -> B28
+        world.get_entrance("Fortress Bells to Fortress Lodging"),
+        Has("Bottle")
+    )
+    # B09 Cliff -> B10 Grand Hall: requires B08 Terminal 3
 
     # set journal page conditions
     origin = world.origin_region_name
@@ -49,29 +70,53 @@ def set_all_entrance_rules(world: ChantsOfSennaarWorld) -> None:
                 *[CanReachRegion(scene) for scene in page_scenes],
             )
         )
+    for p in range(len(WARRIOR_PAGES)):
+        page_name = WARRIOR_PAGES[p]
+        page_runes = [WARRIOR_RUNES[r] for r in WARRIOR_PAGE_RUNES[p]]
+        page_scenes = [
+            f"{IDS_TO_SCENES[s]}" for s in WARRIOR_PAGE_SCENES[p]
+        ]
+        world.set_rule(
+            world.get_entrance(f"{origin} to {page_name}"), 
+            And(
+                HasAll(*page_runes),
+                *[CanReachRegion(scene) for scene in page_scenes],
+            )
+        )
 
     # set rune conditions
-    # A07 DEVOTS 3, 4, 14 -- need access to A08, A11 (child)
+    # A07 DEVOTS 3, 4, 14 -- need access to A08a, A11 (child)
     for r in [3, 4, 14]:    
         world.set_rule(
             world.get_entrance(f"{IDS_TO_SCENES["A07"]} to {DEVOTEE_RUNES[r]}"),
             And(
-                CanReachRegion(f"{IDS_TO_SCENES["A08"]}"),
+                CanReachRegion(f"{IDS_TO_SCENES["A08a"]}"),
                 CanReachRegion(f"{IDS_TO_SCENES["A11"]}")
             )
         )
-    # A08 DEVOTS 14 -- need access to A11 (child)
+    # A08a DEVOTS 14 -- need access to A11 (child)
     world.set_rule(
-        world.get_entrance(f"{IDS_TO_SCENES["A08"]} to {DEVOTEE_RUNES[14]}"),
+        world.get_entrance(f"{IDS_TO_SCENES["A08a"]} to {DEVOTEE_RUNES[14]}"),
         CanReachRegion(f"{IDS_TO_SCENES["A11"]}")
     )
-    # A10 DEVOTS 1, 3, 4, 12, 14, 22, 31 -- need access to A07, A08, A11 (child)
+    # A10 DEVOTS 1, 3, 4, 12, 14, 22, 31 -- need access to A07, A08a, A11 (child)
     for r in [1, 3, 4, 12, 14, 22, 31]:    
         world.set_rule(
             world.get_entrance(f"{IDS_TO_SCENES["A10"]} to {DEVOTEE_RUNES[r]}"),
             And(
                 CanReachRegion(f"{IDS_TO_SCENES["A07"]}"),
-                CanReachRegion(f"{IDS_TO_SCENES["A08"]}"),
+                CanReachRegion(f"{IDS_TO_SCENES["A08a"]}"),
+                CanReachRegion(f"{IDS_TO_SCENES["A11"]}")
+            )
+        )
+    # A12 DEVOTS 1, 3, 4, 5, 12, 13, 21 -- need all prior Child scenes
+    for r in [1, 3, 4, 5, 12, 13, 21]:    
+        world.set_rule(
+            world.get_entrance(f"{IDS_TO_SCENES["A12"]} to {DEVOTEE_RUNES[r]}"),
+            And(
+                CanReachRegion(f"{IDS_TO_SCENES["A07"]}"),
+                CanReachRegion(f"{IDS_TO_SCENES["A08a"]}"),
+                CanReachRegion(f"{IDS_TO_SCENES["A10"]}"),
                 CanReachRegion(f"{IDS_TO_SCENES["A11"]}")
             )
         )
@@ -81,11 +126,17 @@ def set_all_entrance_rules(world: ChantsOfSennaarWorld) -> None:
             world.get_entrance(f"{IDS_TO_SCENES["A13"]} to {DEVOTEE_RUNES[r]}"),
             Has("Coin")
         )
-    # A30 DEVOTS 14, 21 -- need Cellar Key
-    for r in [14, 21]:    
+    # A30 DEVOTS 1, 3, 4, 5, 10, 12, 14, 15, 17, 18, 21, 31 -- need all prior Child scenes
+    for r in [1, 3, 4, 5, 10, 12, 14, 15, 17, 18, 21, 31]:    
         world.set_rule(
             world.get_entrance(f"{IDS_TO_SCENES["A30"]} to {DEVOTEE_RUNES[r]}"),
-            Has("Cellar Key")
+            And(
+                CanReachRegion(f"{IDS_TO_SCENES["A07"]}"),
+                CanReachRegion(f"{IDS_TO_SCENES["A08a"]}"),
+                CanReachRegion(f"{IDS_TO_SCENES["A10"]}"),
+                CanReachRegion(f"{IDS_TO_SCENES["A11"]}"),
+                CanReachRegion(f"{IDS_TO_SCENES["A12"]}")
+            )
         )
 
 
