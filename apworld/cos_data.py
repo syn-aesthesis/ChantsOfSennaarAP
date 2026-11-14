@@ -332,7 +332,7 @@ for u in range(len(USEFUL_KEY_ITEMS)):
     DEFAULT_ITEM_CLASSIFICATIONS[useful] = ItemClassification.useful
 
 for f in range(len(FILLER_KEY_ITEMS)):
-    filler = FILLER_ITEMS[f]
+    filler = FILLER_KEY_ITEMS[f]
     ITEM_NAME_TO_ID[filler] = 2300 + f
     DEFAULT_ITEM_CLASSIFICATIONS[filler] = ItemClassification.filler
 
