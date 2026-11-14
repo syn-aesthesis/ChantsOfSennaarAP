@@ -5,7 +5,7 @@ from Options import Choice, OptionGroup, PerGameCommonOptions, Range, Toggle
 class GoalType(Choice):
     """
     Defines the goal condition.
-    As of v0.2.0: Only the 'journal_hunt' goal has been implemented.
+    As of v0.3.0: Only the 'journal_hunt' goal has been implemented.
     """
 
     display_name = "Goal Type"
@@ -21,15 +21,15 @@ class JournalHuntPageCount(Range):
     """
     If journal_hunt is chosen as the goal type,
     defines the number of complete journal pages needed to goal.
-    As of v0.2.0: Only page counts 1 to 10 have been implemented.
+    As of v0.3.0: Only page counts 1 to 21 have been implemented.
     """
 
     display_name = "Journal Hunt Page Count"
 
     range_start = 1
-    range_end = 10
+    range_end = 21
 
-    default = 8
+    default = 15
 
 
 class TrapChance(Range):
