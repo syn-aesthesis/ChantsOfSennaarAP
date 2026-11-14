@@ -73,7 +73,12 @@ internal class JournalPatch {
             return;
         
         Plugin.Logger.LogInfo($"Completed page: {lang} {pageId}");
-        
-        ArchipelagoClient.SendCheck($"Complete {Languages[lang.ToString()][pageId]}");
+
+        try {
+            ArchipelagoClient.SendCheck($"Complete {Languages[lang.ToString()][pageId]}");
+        }
+        catch (Exception e) {
+            Plugin.Logger.LogError(e);
+        }
     }
 }
