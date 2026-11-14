@@ -42,6 +42,13 @@ public class Plugin : BaseUnityPlugin {
         { "Bottle", ItemType.BOTTLE },
     };
     internal static readonly HashSet<ItemType> ReceivedItems = new();
+    internal static readonly Dictionary<string, (LevelType, int)> TerminalItems = new() {
+        { "Terminal 1", (LevelType.ABBAYE, 16) },
+        { "Terminal 2", (LevelType.ABBAYE, 25) },
+        { "Terminal 3", (LevelType.FORT, 7) },
+        { "Terminal 4", (LevelType.FORT, 21) },
+    };
+    internal static readonly HashSet<(LevelType, int)> ReceivedTerminals = new();
     
     private void Awake() {
         Logger = base.Logger;
@@ -160,6 +167,10 @@ public class Plugin : BaseUnityPlugin {
             }
             return gameItem.IsOwned();
         }
+        
+        // Handle terminals
+        if (TerminalItems.ContainsKey(item.ItemName))
+            return true;  // already handled by ApplyPendingItems
         
         // Anything outside the above
         Logger.LogWarning($"Unknown item name: {item.ItemName}");

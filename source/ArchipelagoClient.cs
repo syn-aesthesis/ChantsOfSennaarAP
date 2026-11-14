@@ -172,8 +172,11 @@ public class ArchipelagoClient {
             _itemsReceived = 0;
         }
         while (_itemsReceived < count) {
+            var name = all[_itemsReceived].ItemName;
             if (Plugin.ItemTypes.TryGetValue(all[_itemsReceived].ItemName, out var item))
                 Plugin.ReceivedItems.Add(item);
+            else if (Plugin.TerminalItems.TryGetValue(name, out var terminal))
+                Plugin.ReceivedTerminals.Add(terminal);
             _itemsReceived++;
         }
         
