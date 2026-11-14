@@ -3,8 +3,7 @@ using HarmonyLib;
 namespace ChantsOfSennaarAP;
 
 [HarmonyPatch(typeof(InvisibleSwitch))]
-static class InvisibleSwitchPatch
-{
+static class InvisibleSwitchPatch {
     [HarmonyPatch(nameof(InvisibleSwitch.Trigger))]
     [HarmonyPrefix]
     static bool SkipTutorialWalkback(InvisibleSwitch __instance) {

@@ -4,8 +4,7 @@ using System.Collections.Generic;
 namespace ChantsOfSennaarAP;
 
 [HarmonyPatch(typeof(LanguageData))]
-internal class LanguageDataPatch
-{
+internal class LanguageDataPatch {
     private static readonly Dictionary<string, string> Languages = new Dictionary<string, string>() {
         { "DEVOTS", "Devotee" },
         { "GUERRIERS", "Warrior" },

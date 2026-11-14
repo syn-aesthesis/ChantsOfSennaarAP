@@ -1,11 +1,11 @@
 using HarmonyLib;
+using System;
 using System.Collections.Generic;
 
 namespace ChantsOfSennaarAP;
 
 [HarmonyPatch(typeof(Journal))]
-internal class JournalPatch
-{
+internal class JournalPatch {
     private static readonly Dictionary<string, Dictionary<int, string>> Languages = new() {
         { "DEVOTS", new Dictionary<int, string>()
             {
