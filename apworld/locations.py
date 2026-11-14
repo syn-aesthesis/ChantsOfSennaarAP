@@ -45,7 +45,7 @@ def create_regular_locations(world: ChantsOfSennaarWorld) -> None:
 
 
 def create_events(world: ChantsOfSennaarWorld) -> None:
-    start_region = world.get_region("Crypt Spawn")  # TODO: change based on start location
+    start_region = world.get_region(world.origin_region_name)
     start_region.add_event("Goal Condition", "Goal", 
                           location_type=ChantsOfSennaarLocation,
                           item_type=items.ChantsOfSennaarItem)
