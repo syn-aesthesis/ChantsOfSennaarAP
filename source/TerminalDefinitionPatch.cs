@@ -7,11 +7,8 @@ internal class TerminalDefinitionPatch {
     [HarmonyPatch(nameof(TerminalDefinition.IsFound))]
     [HarmonyPostfix]
     static void RequireReceived(TerminalDefinition __instance, ref bool __result) {
-        if (!__result)
-            return;
-
         var key = (__instance.terminalLoader.level, __instance.terminalLoader.placeId);
-        if (Plugin.TerminalItems.ContainsValue(key) && !Plugin.ReceivedTerminals.Contains(key))
-            __result = false;
+        if (Plugin.TerminalItems.ContainsValue(key))
+            __result = Plugin.ReceivedTerminals.Contains(key);
     }
 }
