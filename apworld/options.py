@@ -35,7 +35,7 @@ class JournalHuntPageCount(Range):
 class TrapChance(Range):
     """
     Percent chance that any given filler item will be replaced by a trap item.
-    As of v0.2.0: Trap items do not currently have any effect on the game.
+    As of v0.3.0: Trap items do not currently have any effect on the game.
     """
 
     display_name = "Trap Chance"
