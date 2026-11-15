@@ -169,6 +169,8 @@ public class ArchipelagoClient {
         
         if (count < _itemsReceived) {
             Plugin.ReceivedItems.Clear();
+            Plugin.ReceivedTerminals.Clear();
+            Plugin.ReceivedPortalKeys.Clear();
             _itemsReceived = 0;
         }
         while (_itemsReceived < count) {
@@ -177,6 +179,8 @@ public class ArchipelagoClient {
                 Plugin.ReceivedItems.Add(item);
             else if (Plugin.TerminalItems.TryGetValue(name, out var terminal))
                 Plugin.ReceivedTerminals.Add(terminal);
+            else if (Plugin.PortalKeyNames.Contains(name))
+                Plugin.ReceivedPortalKeys.Add(name);
             _itemsReceived++;
         }
         

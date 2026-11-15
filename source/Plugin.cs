@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Archipelago.MultiClient.Net.Models;
 using OP = AbstractInteractiveState.OperadedOperator;
 
@@ -49,6 +50,15 @@ public class Plugin : BaseUnityPlugin {
         { "Terminal 4", (LevelType.FORT, 21) },
     };
     internal static readonly HashSet<(LevelType, int)> ReceivedTerminals = new();
+    
+    // Portal edge (src, dst) -> OR-list of AND-groups of required AP items
+    internal static readonly Dictionary<((LevelType, int) src, (LevelType, int) dst), List<string[]>> PortalGates = new() {
+        { ((LevelType.ABBAYE, 7), (LevelType.ABBAYE, 27)), new() { new[] { "Lens" } } },
+    };
+    // Any AP item that is required for a portal edge
+    internal static readonly HashSet<string> PortalKeyNames =
+        new(PortalGates.Values.SelectMany(groups => groups.SelectMany(g => g)));
+    internal static readonly HashSet<string> ReceivedPortalKeys = new();
     
     private void Awake() {
         Logger = base.Logger;
@@ -168,8 +178,8 @@ public class Plugin : BaseUnityPlugin {
             return gameItem.IsOwned();
         }
         
-        // Handle terminals
-        if (TerminalItems.ContainsKey(item.ItemName))
+        // Handle terminals and portals
+        if (TerminalItems.ContainsKey(item.ItemName) || PortalKeyNames.Contains(item.ItemName))
             return true;  // already handled by ApplyPendingItems
         
         // Anything outside the above
