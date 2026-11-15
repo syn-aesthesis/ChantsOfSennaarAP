@@ -41,7 +41,4 @@
     </Reference>
   </ItemGroup>
   
-  <ItemGroup>
-    <Compile Remove="PlayerControllerPatch.cs" />
-  </ItemGroup>
 </Project>
