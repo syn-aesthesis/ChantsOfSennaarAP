@@ -87,7 +87,14 @@ public static class ArchipelagoConsole {
             }
         }
 
-        int width = (int)(Screen.width*0.4f);
+        int thirdX = (int)(Screen.width*2f/3f);
+        int thirdW = Screen.width - thirdX;
+
+        int buttonWidth = (int)(thirdW*0.2f);
+        int gap = (int)(thirdW*0.02f);
+        int width = thirdW - buttonWidth - gap;
+        
+        int buttonHeight = (int)(Screen.height*0.03f);
         int height;
         int scrollDepth;
         if (Hidden) {
@@ -99,7 +106,7 @@ public static class ArchipelagoConsole {
             scrollDepth = height*10;
         }
 
-        _window = new Rect(Screen.width/2 - width/2, 0, width, height);
+        _window = new Rect(thirdX, 0, width, height);
         _scroll = new Rect(0, 0, width*0.9f, scrollDepth);
         _scrollView = new Vector2(0, scrollDepth);
         _text = new Rect(0, 0, width, scrollDepth);
@@ -115,15 +122,10 @@ public static class ArchipelagoConsole {
         _textStyle.padding = Hidden
             ? new RectOffset(xPadding/2, xPadding/2, yPadding/2, yPadding/2)
             : new RectOffset(xPadding, xPadding, yPadding, yPadding);
+        
+        _hideShowButton = new Rect(thirdX + width + gap, Screen.height * 0.004f, buttonWidth, buttonHeight);
 
-        var buttonWidth = (int)(Screen.width*0.12f);
-        var buttonHeight = (int)(Screen.height*0.03f);
-
-        _hideShowButton = new Rect(Screen.width/2 + width/2 + buttonWidth/3, Screen.height * 0.004f, buttonWidth,
-            buttonHeight);
-
-        width = (int)(Screen.width * 0.4f);
-        var xPos = (int)(Screen.width*0.5f - width*0.5f);
+        var xPos = thirdX;
         var yPos = (int)(Screen.height*0.307f);
         height = (int)(Screen.height*0.022f);
 
