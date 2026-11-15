@@ -29,6 +29,10 @@ def set_all_entrance_rules(world: ChantsOfSennaarWorld) -> None:
         world.get_entrance("Abbey Garden to Abbey Workshop"),
         Has("Workshop Key")
     )
+    world.set_rule(  # A28 -> A08b
+        world.get_entrance("Abbey Underground 1 to Abbey Great Door 2"),
+        Has("Lens")
+    )
     world.set_rule(  # A28 -> A29
         world.get_entrance("Abbey Underground 1 to Abbey Underground 2"),
         Has("Lens")
@@ -36,10 +40,6 @@ def set_all_entrance_rules(world: ChantsOfSennaarWorld) -> None:
     world.set_rule(  # A30 -> A19
         world.get_entrance("Abbey Cellar to Abbey Cloister"),
         Has("Cellar Key")
-    )
-    world.set_rule(  # A28 -> A08b
-        world.get_entrance("Abbey Underground 1 to Abbey Great Door 2"),
-        Has("Lens")
     )
     world.set_rule(  # B04 -> A08b
         world.get_entrance("Frontier 1 to Abbey Great Door 2"),
