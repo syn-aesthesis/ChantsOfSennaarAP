@@ -25,6 +25,15 @@ def set_all_entrance_rules(world: ChantsOfSennaarWorld) -> None:
         world.get_entrance("Abbey Great Door 2 to Frontier 1"),
         Has("Lens")
     )
+    world.set_rule(  # A10 -> A12
+        world.get_entrance("Abbey Great Door 2 to Abbey Courtyard"),
+        And(
+            CanReachRegion(f"{IDS_TO_SCENES["A07"]}"),
+            CanReachRegion(f"{IDS_TO_SCENES["A08a"]}"),
+            CanReachRegion(f"{IDS_TO_SCENES["A10"]}"),
+            CanReachRegion(f"{IDS_TO_SCENES["A11"]}"),
+        )
+    )
     world.set_rule(  # A23 -> A24
         world.get_entrance("Abbey Garden to Abbey Workshop"),
         Has("Workshop Key")
