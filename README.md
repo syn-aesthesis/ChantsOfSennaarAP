@@ -3,7 +3,7 @@
 An [Archipelago Multiworld](https://github.com/ArchipelagoMW/Archipelago) implementation for Chants of Sennaar
 
 - **Status:** Playable alpha, unstable
-- **Latest release:** 0.2.1 (improved Floor 1 implementation)
+- **Latest release:** 0.3.1 (Floor 2 + terminals + bugfixes)
 
 
 ## Mod installation guide (Windows)
@@ -19,10 +19,10 @@ An [Archipelago Multiworld](https://github.com/ArchipelagoMW/Archipelago) implem
 ## About this AP implementation
 
 What is currently implemented?
-- Versions 0.2.x contain the initial implementation of Floor 1.
+- Versions 0.3.x implement Floors 1 and 2 of the tower.
 
 What do the yaml options do?
-- In Versions 0.2.x, the `goal_type` is fixed to `journal_hunt` with a `journal_hunt_page_count` ranging from 1 to 10. Any other options selected do not currently affect the behavior of the mod.
+- In Versions 0.3.x, the `goal_type` is fixed to `journal_hunt` with a `journal_hunt_page_count` ranging from 1 to 10. Any other options selected do not currently affect the behavior of the mod.
 
 What count as "checks" in this game?
 - Each new rune observed is one check.
@@ -30,11 +30,11 @@ What count as "checks" in this game?
 - Terminal puzzles are planned as optional checks in a future update.
 
 What "items" can you receive?
-- Runes and key items are implemented as AP items that can be received from the multiworld.
-- Terminal "keys" are planned as optional items in a future update.
+- Runes, key items, and terminals are implemented as AP items that can be received from the multiworld.
 
 What else is randomized in this game?
 - Randomized start locations are planned in a future update.
+- Entrance randomization is planned in a future update.
 - A language randomization system has been proposed, and may be implemented at a much later stage.
 
 
