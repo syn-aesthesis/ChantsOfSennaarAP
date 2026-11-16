@@ -17,6 +17,26 @@ def set_all_rules(world: ChantsOfSennaarWorld) -> None:
 
 def set_all_entrance_rules(world: ChantsOfSennaarWorld) -> None:
     # set scene access conditions
+    world.set_rule(  # A08a -> A08b
+        world.get_entrance("Abbey Great Door 1 to Abbey Great Door 2"),
+        And(
+            CanReachRegion("Terminal 3"),
+            HasAll(
+                *[DEVOTEE_RUNES[r] for r in [1, 5, 12, 30, 33]],
+                *[WARRIOR_RUNES[r] for r in [0, 13, 14, 20, 30, 31]]
+            )
+        )
+    )
+    world.set_rule(  # A08b -> A08a
+        world.get_entrance("Abbey Great Door 2 to Abbey Great Door 1"),
+        And(
+            CanReachRegion("Terminal 3"),
+            HasAll(
+                *[DEVOTEE_RUNES[r] for r in [1, 5, 12, 30, 33]],
+                *[WARRIOR_RUNES[r] for r in [0, 13, 14, 20, 30, 31]]
+            )
+        )
+    )
     world.set_rule(  # A08b -> A28
         world.get_entrance("Abbey Great Door 2 to Abbey Underground 1"),
             Has("Lens"),
